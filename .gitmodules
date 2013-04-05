@@ -1,0 +1,3 @@
+[submodule "vendor/flot"]
+	path = vendor/flot
+	url = git@github.com:gjmurakami-10gen/flot.git
