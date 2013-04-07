@@ -18,6 +18,13 @@ The performance tests are from <a href="https://github.com/mongodb/mongo-perform
 
 <p>Append with method to_bson(encoded) for serialization</p>
 
+<p>Interpretation for combinations:<br>
+Encoding has improved but still looks disappointing,
+the BSON 2.0/mongo-meta-driver performance still lags considerably.<br>
+Decoding has not changed from the kickoff measurement as expected,
+significant improvement is needed still to catch up with bson_c and bson_java.
+</p>
+
 <p>
 Combinations of
 <ul>
@@ -32,6 +39,11 @@ Combinations of
 <li><a href="test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
 <li><a href="test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
 </ul>
+
+<p>Interpretation for comparison:<br>
+Encoding has improved significantly, but not as much as hoped.<br>
+Decoding has not changed from the kickoff measurement as expected.
+</p>
 
 <p>
 Comparison of
