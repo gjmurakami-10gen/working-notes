@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Ruby BSON Performance</title>
+    <title>Kickoff - Ruby BSON Performance</title>
     <!--[if lte IE 8]>
-    <script language="javascript" type="text/javascript" src="../vendor/flot/excanvas.min.js"></script><![endif]-->
-    <script language="javascript" type="text/javascript" src="../vendor/flot/jquery.js"></script>
-    <script language="javascript" type="text/javascript" src="../vendor/flot/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="test_bson_all_quartet.js"></script>
+    <script language="javascript" type="text/javascript" src="../../vendor/flot/excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="test_bson_all_denizen.js"></script>
     <style type="text/css">
         .plot {
             width: 900px;
@@ -17,7 +17,20 @@
 </head>
 <body>
 <h1>Ruby BSON Performance</h1>
-<img style="float: right;" src="bson.png" alt="BSON img">
+<img style="float: right;" src="../bson.png" alt="BSON img">
+<h2>Kickoff</h2>
+
+<p>Kickoff for BSON 2.0 (mongo-meta-driver) - Initial Ruby BSON combination comparison</p>
+
+<p>
+Combinations of
+<ul>
+<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+</p>
+
 <p id="sysinfo"></p>
 <p id="label"></p>
 
@@ -90,8 +103,8 @@
                 var element = testData[i];
                 var ops = element.user.ops.average;
                 var label = element.label.split(' ');
-                var ylabel = [element.bsonCoder, label[4]].join(' ');
-                plotData[element.bsonCoder].push([ops, i, element.label]);
+                var ylabel = [element.bsonCoder, label[4].split('-')[0]].join(' ');
+                plotData[element.bsonCoder].push([ops, i, 'tag: ' + element.tag, 'label: ' + element.label]);
                 yticks.push([i+0.5, ylabel]);
             }
             $('#' + testCoder).append('<div><h3>' + title + '</h3>' +
@@ -147,7 +160,7 @@
                             y = item.datapoint[1].toFixed(2);
                         var data = item.series.data[item.dataIndex];
                         showTooltip(labelWidth, item.pageY,
-                            human(data[0]) +  ' ops/s<br/>' + data[2]);
+                            human(data[0]) +  ' ops/s<br/>' + data[2] + ' <br/>' + data[3]);
                     }
                 }
                 else {

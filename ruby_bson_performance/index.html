@@ -15,14 +15,89 @@
 <img style="float: right;" src="bson.png" alt="BSON img">
 <h1>Ruby BSON Performance</h1>
 
+<p>
 Select a link to view comparative graphs of BSON performance.
 The performance tests are from <a href="https://github.com/mongodb/mongo-performance">mongo-performance</a>.
+</p>
 
-<p><a href="test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></p>
+<h1>Index</h1>
 
-<p><a href="test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></p>
+<h2>Append (Current/Latest)</h2>
 
-<p><a href="test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></p>
+<p>Append with method to_bson(encoded) for serialization</p>
+
+<p>Interpretation for combinations:<br>
+Encoding has improved but still looks disappointing,
+the BSON 2.0/mongo-meta-driver performance still lags considerably.<br>
+Decoding has not changed from the kickoff measurement as expected,
+significant improvement is needed still to catch up with bson_c and bson_java.
+</p>
+
+<p>
+Combinations of
+<ul>
+<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+</p>
+
+<p><a href="append/index.html">Append index</a></p>
+
+<ul>
+<li><a href="append/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="append/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="append/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
+
+<p>Interpretation for comparison:<br>
+Encoding has improved significantly, but not as much as hoped.<br>
+Decoding has not changed from the kickoff measurement as expected.
+</p>
+
+<p>
+Comparison of
+<ul>
+<li>versions (append, kickoff)</li>
+<li>drivers (mongo-meta-driver)</li>
+<li>extensions (pure ruby, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+</p>
+
+<ul>
+<li><a href="append/test_bson_all_append_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="append/test_bson_all_append_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="append/test_bson_all_append_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
+
+<h2>Kickoff Index</h2>
+
+<p>Kickoff for BSON 2.0 (mongo-meta-driver) - Initial Ruby BSON combination comparison</p>
+
+<p>Interpretation for combinations:<br>
+Encoding looks disappointing for a kickoff measurement,
+the BSON 2.0/mongo-meta-driver performance lags considerably.<br>
+Decoding looks fairly good for a kickoff measurement,
+however significant improvement is needed to catch up with bson_c and bson_java.
+</p>
+
+<p>
+Combinations of
+<ul>
+<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+</p>
+
+<p><a href="kickoff/index.html">Kickoff</a></p>
+
+<ul>
+<li><a href="kickoff/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="kickoff/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="kickoff/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
 
 </body>
 </html>
