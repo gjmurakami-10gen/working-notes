@@ -783,6 +783,788 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
   },
   {
     "title": "testDecodeArrayTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 14251,
+    "threads": 1,
+    "startTime": "2013-04-07T00:08:01Z",
+    "endTime": "2013-04-07T00:09:42Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 98.22,
+        "min": 0.0006827591046242371,
+        "max": 0.0007143358360816785,
+        "average": 0.0006892147919444249,
+        "median": 0.0006883727457722264,
+        "90percentile": 0.0007013542909269525
+      },
+      "ops": {
+        "min": 1464.6454265159296,
+        "max": 1399.901768172888,
+        "average": 1450.9264915495826,
+        "median": 1452.7013251783897,
+        "90percentile": 1425.8129064532266
+      }
+    },
+    "real": {
+      "times": {
+        "total": 96.89300036430359,
+        "min": 0.0006749000091584856,
+        "max": 0.0006936355336792686,
+        "average": 0.0006799031672465342,
+        "median": 0.0006802329665091605,
+        "90percentile": 0.000687214936902921
+      },
+      "ops": {
+        "min": 1481.7009726327797,
+        "max": 1441.6793134799116,
+        "average": 1470.7976785132375,
+        "median": 1470.084587537457,
+        "90percentile": 1455.148813421767
+      }
+    }
+  },
+  {
+    "title": "testDecodeBooleanTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 83719,
+    "threads": 1,
+    "startTime": "2013-04-07T00:09:42Z",
+    "endTime": "2013-04-07T00:11:26Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.22000000000001,
+        "min": 0.00011801383198557106,
+        "max": 0.0001255390054826263,
+        "average": 0.00011970998220236747,
+        "median": 0.00011920830396923028,
+        "90percentile": 0.00012261254912266034
+      },
+      "ops": {
+        "min": 8473.582995951396,
+        "max": 7965.651760228361,
+        "average": 8353.522251047694,
+        "median": 8388.677354709427,
+        "90percentile": 8155.772040915733
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.79299974441528,
+        "min": 0.0001175360421668834,
+        "max": 0.00012519260796944824,
+        "average": 0.00011919994236005599,
+        "median": 0.00011867079089310121,
+        "90percentile": 0.0001222064280102992
+      },
+      "ops": {
+        "min": 8508.028529496945,
+        "max": 7987.692054821942,
+        "average": 8389.2658016511,
+        "median": 8426.673425483454,
+        "90percentile": 8182.875616949732
+      }
+    }
+  },
+  {
+    "title": "testDecodeDateTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 47906,
+    "threads": 1,
+    "startTime": "2013-04-07T00:11:26Z",
+    "endTime": "2013-04-07T00:13:09Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.47999999999999,
+        "min": 0.00020769840938504548,
+        "max": 0.00021082954118482075,
+        "average": 0.00020974408216089838,
+        "median": 0.00020968145952490326,
+        "90percentile": 0.00021082954118482045
+      },
+      "ops": {
+        "min": 4814.673366834177,
+        "max": 4743.168316831672,
+        "average": 4767.714968152867,
+        "median": 4769.138875062213,
+        "90percentile": 4743.1683168316795
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.57400012016296,
+        "min": 0.00020586147849029158,
+        "max": 0.00020905523037794004,
+        "average": 0.00020785287880466534,
+        "median": 0.00020781322017878782,
+        "90percentile": 0.00020897173709333482
+      },
+      "ops": {
+        "min": 4857.635373716409,
+        "max": 4783.424926475899,
+        "average": 4811.095260026558,
+        "median": 4812.013399049736,
+        "90percentile": 4785.33611247803
+      }
+    }
+  },
+  {
+    "title": "testDecodeDoubleTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 64402,
+    "threads": 1,
+    "startTime": "2013-04-07T00:13:09Z",
+    "endTime": "2013-04-07T00:14:51Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.23000000000002,
+        "min": 0.00015449830750597789,
+        "max": 0.0001627278655942365,
+        "average": 0.00015563181267662498,
+        "median": 0.00015480885686779868,
+        "90percentile": 0.00015907891059283925
+      },
+      "ops": {
+        "min": 6472.562814070359,
+        "max": 6145.229007633578,
+        "average": 6425.421530479895,
+        "median": 6459.578736208645,
+        "90percentile": 6286.188384577823
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.43400001525879,
+        "min": 0.00015317847286632004,
+        "max": 0.0001616875231886113,
+        "average": 0.00015439582624027015,
+        "median": 0.00015356665919839268,
+        "90percentile": 0.00015794540435600524
+      },
+      "ops": {
+        "min": 6528.332482284944,
+        "max": 6184.769116869226,
+        "average": 6476.859021070972,
+        "median": 6511.83014086476,
+        "90percentile": 6331.30165500747
+      }
+    }
+  },
+  {
+    "title": "testDecodeEmbeddedTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 14037,
+    "threads": 1,
+    "startTime": "2013-04-07T00:14:51Z",
+    "endTime": "2013-04-07T00:16:33Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.64999999999998,
+        "min": 0.0007138277409702915,
+        "max": 0.0007202393673861946,
+        "average": 0.0007170335541782431,
+        "median": 0.0007173897556457908,
+        "90percentile": 0.0007195269644510932
+      },
+      "ops": {
+        "min": 1400.898203592817,
+        "max": 1388.4272997032622,
+        "average": 1394.6348733233983,
+        "median": 1393.9424031777605,
+        "90percentile": 1389.8019801980206
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.33799982070923,
+        "min": 0.0007046377284324534,
+        "max": 0.0007104794507082043,
+        "average": 0.0007076868263924573,
+        "median": 0.0007079860428132554,
+        "90percentile": 0.0007099451447701772
+      },
+      "ops": {
+        "min": 1419.168971018077,
+        "max": 1407.500243677987,
+        "average": 1413.054422812495,
+        "median": 1412.4572230638857,
+        "90percentile": 1408.5595307841977
+      }
+    }
+  },
+  {
+    "title": "testDecodeIntegerTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 63161,
+    "threads": 1,
+    "startTime": "2013-04-07T00:16:33Z",
+    "endTime": "2013-04-07T00:18:17Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 102.05999999999995,
+        "min": 0.00015990880448377991,
+        "max": 0.00016940833742340894,
+        "average": 0.00016158705530311418,
+        "median": 0.00016085875777774208,
+        "90percentile": 0.0001654501986985638
+      },
+      "ops": {
+        "min": 6253.56435643563,
+        "max": 5902.89719626172,
+        "average": 6188.614540466396,
+        "median": 6216.633858267736,
+        "90percentile": 6044.114832535892
+      }
+    },
+    "real": {
+      "times": {
+        "total": 101.27400016784668,
+        "min": 0.00015867386637935746,
+        "max": 0.00016830006039234526,
+        "average": 0.00016034261675376685,
+        "median": 0.00015955256988466927,
+        "90percentile": 0.0001642785903758655
+      },
+      "ops": {
+        "min": 6302.235036040529,
+        "max": 5941.768515523853,
+        "average": 6236.645130568555,
+        "median": 6267.52675135749,
+        "90percentile": 6087.220481451805
+      }
+    }
+  },
+  {
+    "title": "testDecodeString10000TypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 23772,
+    "threads": 1,
+    "startTime": "2013-04-07T00:18:17Z",
+    "endTime": "2013-04-07T00:20:00Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 107.43000000000006,
+        "min": 0.0004501093723708536,
+        "max": 0.0004538953390543529,
+        "average": 0.0004519182231196368,
+        "median": 0.00045179202423018715,
+        "90percentile": 0.00045347467608951834
+      },
+      "ops": {
+        "min": 2221.6822429906683,
+        "max": 2203.1510658016523,
+        "average": 2212.789723540909,
+        "median": 2213.4078212290483,
+        "90percentile": 2205.1948051947993
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.81900024414062,
+        "min": 0.00041906445110243375,
+        "max": 0.0004218828892759977,
+        "average": 0.0004199015658932384,
+        "median": 0.0004195482085374155,
+        "90percentile": 0.00042163048973192617
+      },
+      "ops": {
+        "min": 2386.267786182526,
+        "max": 2370.326044073798,
+        "average": 2381.510528241883,
+        "median": 2383.516315052552,
+        "90percentile": 2371.7449860796423
+      }
+    }
+  },
+  {
+    "title": "testDecodeString100TypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 57047,
+    "threads": 1,
+    "startTime": "2013-04-07T00:20:00Z",
+    "endTime": "2013-04-07T00:21:42Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.25,
+        "min": 0.00017459287955545492,
+        "max": 0.000176345820113239,
+        "average": 0.00017573229091801497,
+        "median": 0.00017573229091801456,
+        "90percentile": 0.000176345820113239
+      },
+      "ops": {
+        "min": 5727.610441767048,
+        "max": 5670.675944334027,
+        "average": 5690.473815461346,
+        "median": 5690.47381546136,
+        "90percentile": 5670.675944334027
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.1089997291565,
+        "min": 0.0001726120546856405,
+        "max": 0.0001744000540211472,
+        "average": 0.00017373218526680893,
+        "median": 0.00017369888055639466,
+        "90percentile": 0.00017436499566135977
+      },
+      "ops": {
+        "min": 5793.338140961191,
+        "max": 5733.943178014974,
+        "average": 5755.985849508837,
+        "median": 5757.089491865383,
+        "90percentile": 5735.0960621828835
+      }
+    }
+  },
+  {
+    "title": "testEncodeArrayTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 3502,
+    "threads": 1,
+    "startTime": "2013-04-07T00:21:42Z",
+    "endTime": "2013-04-07T00:23:28Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 102.80000000000007,
+        "min": 0.002884066247858341,
+        "max": 0.0030725299828669307,
+        "average": 0.0029354654483152503,
+        "median": 0.0029140491147915592,
+        "90percentile": 0.003051113649343233
+      },
+      "ops": {
+        "min": 346.73267326732986,
+        "max": 325.46468401487016,
+        "average": 340.6614785992216,
+        "median": 343.16511513963604,
+        "90percentile": 327.74918109499293
+      }
+    },
+    "real": {
+      "times": {
+        "total": 101.55799961090088,
+        "min": 0.0028512278398331883,
+        "max": 0.0030334094536093423,
+        "average": 0.0028999999888892312,
+        "median": 0.0028797829580061917,
+        "90percentile": 0.0030161336038808423
+      },
+      "ops": {
+        "min": 350.7260928184909,
+        "max": 329.662056934034,
+        "average": 344.82758752803437,
+        "median": 347.2483914872344,
+        "90percentile": 331.55029959989355
+      }
+    }
+  },
+  {
+    "title": "testEncodeBooleanTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 35340,
+    "threads": 1,
+    "startTime": "2013-04-07T00:23:28Z",
+    "endTime": "2013-04-07T00:25:12Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 103.13,
+        "min": 0.00028636106395019497,
+        "max": 0.0003007923033389925,
+        "average": 0.00029182229767968305,
+        "median": 0.00028975664968873826,
+        "90percentile": 0.00030065082059988683
+      },
+      "ops": {
+        "min": 3492.0948616601167,
+        "max": 3324.553151458139,
+        "average": 3426.7429457965677,
+        "median": 3451.171874999997,
+        "90percentile": 3326.1176470588234
+      }
+    },
+    "real": {
+      "times": {
+        "total": 101.90499973297119,
+        "min": 0.00028290888247141816,
+        "max": 0.0002973967173305958,
+        "average": 0.0002883559698159909,
+        "median": 0.0002863186155933408,
+        "90percentile": 0.0002972269402295098
+      },
+      "ops": {
+        "min": 3534.7069744302867,
+        "max": 3362.5118964859575,
+        "average": 3467.935831667129,
+        "median": 3492.6125845072643,
+        "90percentile": 3364.432575418062
+      }
+    }
+  },
+  {
+    "title": "testEncodeDateTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 27234,
+    "threads": 1,
+    "startTime": "2013-04-07T00:25:12Z",
+    "endTime": "2013-04-07T00:26:56Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 101.48000000000002,
+        "min": 0.00036755526180509625,
+        "max": 0.00039252405081882305,
+        "average": 0.00037262245722258946,
+        "median": 0.0003706763604318142,
+        "90percentile": 0.0003824263787912155
+      },
+      "ops": {
+        "min": 2720.679320679323,
+        "max": 2547.614593077684,
+        "average": 2683.681513598738,
+        "median": 2697.7711738484327,
+        "90percentile": 2614.882381180998
+      }
+    },
+    "real": {
+      "times": {
+        "total": 100.25099992752075,
+        "min": 0.0003628919694867876,
+        "max": 0.0003887420097374046,
+        "average": 0.0003681097155302958,
+        "median": 0.00036625174197224764,
+        "90percentile": 0.00037824043471566154
+      },
+      "ops": {
+        "min": 2755.6410284146796,
+        "max": 2572.4001392993273,
+        "average": 2716.581382698385,
+        "median": 2730.36244036697,
+        "90percentile": 2643.8209884983344
+      }
+    }
+  },
+  {
+    "title": "testEncodeDoubleTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 30385,
+    "threads": 1,
+    "startTime": "2013-04-07T00:26:56Z",
+    "endTime": "2013-04-07T00:28:38Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 101.07000000000016,
+        "min": 0.000331413526411056,
+        "max": 0.00033371729471778417,
+        "average": 0.0003326312325160447,
+        "median": 0.00033305907520157985,
+        "90percentile": 0.0003335527398387322
+      },
+      "ops": {
+        "min": 3017.3783515392447,
+        "max": 2996.548323471438,
+        "average": 3006.3322449787224,
+        "median": 3002.470355731224,
+        "90percentile": 2998.026640355241
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.7599995136261,
+        "min": 0.00032690471776598514,
+        "max": 0.0003294388675485686,
+        "average": 0.00032831989308417344,
+        "median": 0.00032874774006963936,
+        "90percentile": 0.000329192033503741
+      },
+      "ops": {
+        "min": 3058.995314701608,
+        "max": 3035.464538356488,
+        "average": 3045.8099587149404,
+        "median": 3041.8460056582226,
+        "90percentile": 3037.7405836846774
+      }
+    }
+  },
+  {
+    "title": "testEncodeEmbeddedTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 4440,
+    "threads": 1,
+    "startTime": "2013-04-07T00:28:38Z",
+    "endTime": "2013-04-07T00:30:20Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 101.05999999999995,
+        "min": 0.0022545045045045025,
+        "max": 0.0023536036036035627,
+        "average": 0.002276126126126125,
+        "median": 0.002264639639639654,
+        "90percentile": 0.00232432432432431
+      },
+      "ops": {
+        "min": 443.556443556444,
+        "max": 424.88038277512703,
+        "average": 439.34296457549993,
+        "median": 441.5713575335626,
+        "90percentile": 430.23255813953756
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.8149995803833,
+        "min": 0.0022265765581045067,
+        "max": 0.0023295044898986816,
+        "average": 0.002248085576134759,
+        "median": 0.0022364864746729535,
+        "90percentile": 0.0022986486419901116
+      },
+      "ops": {
+        "min": 449.11997135697146,
+        "max": 429.2758414230374,
+        "average": 444.8229242764627,
+        "median": 447.1299117273814,
+        "90percentile": 435.03821407617363
+      }
+    }
+  },
+  {
+    "title": "testEncodeIntegerTypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 27545,
+    "threads": 1,
+    "startTime": "2013-04-07T00:30:20Z",
+    "endTime": "2013-04-07T00:32:03Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.84999999999991,
+        "min": 0.0003634053367217277,
+        "max": 0.00036957705572698623,
+        "average": 0.00036612815392993246,
+        "median": 0.00036612815392993414,
+        "90percentile": 0.00036830640769649185
+      },
+      "ops": {
+        "min": 2751.7482517482545,
+        "max": 2705.7956777996505,
+        "average": 2731.2840852751638,
+        "median": 2731.2840852751515,
+        "90percentile": 2715.130606209991
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.70099949836731,
+        "min": 0.00035933926309338716,
+        "max": 0.0003655835880647231,
+        "average": 0.0003619567961458243,
+        "median": 0.0003618987075298792,
+        "90percentile": 0.0003642403293941302
+      },
+      "ops": {
+        "min": 2782.88543086402,
+        "max": 2735.352550407595,
+        "average": 2762.760668256999,
+        "median": 2763.204120913965,
+        "90percentile": 2745.4400825503844
+      }
+    }
+  },
+  {
+    "title": "testEncodeString10000TypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 1907,
+    "threads": 1,
+    "startTime": "2013-04-07T00:32:03Z",
+    "endTime": "2013-04-07T00:33:46Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 106.00000000000023,
+        "min": 0.005553224960671168,
+        "max": 0.0055742003146303665,
+        "average": 0.005558468799160997,
+        "median": 0.005555846879916113,
+        "90percentile": 0.0055689564761405965
+      },
+      "ops": {
+        "min": 180.07554296506277,
+        "max": 179.397930385699,
+        "average": 179.90566037735812,
+        "median": 179.99056158565315,
+        "90percentile": 179.56685499058182
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.61300015449524,
+        "min": 0.00521709485146533,
+        "max": 0.005240167818834598,
+        "average": 0.0052235448429205685,
+        "median": 0.005220241239074643,
+        "90percentile": 0.0052359727395412245
+      },
+      "ops": {
+        "min": 191.67755781153357,
+        "max": 190.8335829256701,
+        "average": 191.44087589394252,
+        "median": 191.56202830527872,
+        "90percentile": 190.98647944596058
+      }
+    }
+  },
+  {
+    "title": "testEncodeString100TypeDocument",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 17253,
+    "threads": 1,
+    "startTime": "2013-04-07T00:33:46Z",
+    "endTime": "2013-04-07T00:35:27Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 101.03999999999996,
+        "min": 0.0005790297339592987,
+        "max": 0.000610328638497651,
+        "average": 0.000585637280472961,
+        "median": 0.0005833768040340842,
+        "90percentile": 0.000598736451631596
+      },
+      "ops": {
+        "min": 1727.0270270270648,
+        "max": 1638.4615384615427,
+        "average": 1707.5415676959628,
+        "median": 1714.1579731743573,
+        "90percentile": 1670.1839303001086
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.46599960327148,
+        "min": 0.0005698718935111318,
+        "max": 0.0006019822592003715,
+        "average": 0.0005765142271099026,
+        "median": 0.0005741030459734818,
+        "90percentile": 0.000590187214094266
+      },
+      "ops": {
+        "min": 1754.780348682815,
+        "max": 1661.1785226500292,
+        "average": 1734.5625710107015,
+        "median": 1741.8475777364029,
+        "90percentile": 1694.377607848817
+      }
+    }
+  },
+  {
+    "title": "testGeneratedObjectId",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 49932188,
+    "threads": 1,
+    "startTime": "2013-04-07T00:35:27Z",
+    "endTime": "2013-04-07T00:37:13Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 102.79000000000019,
+        "min": 1.996708015278647e-07,
+        "max": 2.1228791335961303e-07,
+        "average": 2.058591944739137e-07,
+        "median": 2.0457745612910117e-07,
+        "90percentile": 2.1158696270229645e-07
+      },
+      "ops": {
+        "min": 5008243.530591762,
+        "max": 4710583.773584946,
+        "average": 4857689.269384172,
+        "median": 4888124.131179622,
+        "90percentile": 4726189.115002342
+      }
+    },
+    "real": {
+      "times": {
+        "total": 101.90299987792969,
+        "min": 1.9786835927239795e-07,
+        "max": 2.10485468621228e-07,
+        "average": 2.0408278499217718e-07,
+        "median": 2.0288516014944115e-07,
+        "90percentile": 2.0985461100510516e-07
+      },
+      "ops": {
+        "min": 5053865.123646866,
+        "max": 4750921.79308357,
+        "average": 4899972.332494049,
+        "median": 4928896.718041969,
+        "90percentile": 4765203.848561959
+      }
+    }
+  },
+  {
+    "title": "testDecodeArrayTypeDocument",
     "label": "JRuby bson_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
     "invocations": 10,
     "iterations": 2335,
@@ -5061,6 +5843,374 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
   },
   {
     "title": "testDecodeBTree",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 2633,
+    "threads": 1,
+    "startTime": "2013-04-07T02:26:37Z",
+    "endTime": "2013-04-07T02:28:10Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 90.8,
+        "min": 0.003364982909229016,
+        "max": 0.0037561716672996582,
+        "average": 0.0034485377895936194,
+        "median": 0.0034105582985188,
+        "90percentile": 0.0036574249905051283
+      },
+      "ops": {
+        "min": 297.17832957110613,
+        "max": 266.2285136501516,
+        "average": 289.9779735682819,
+        "median": 293.20712694877506,
+        "90percentile": 273.4164070612668
+      }
+    },
+    "real": {
+      "times": {
+        "total": 88.27999973297119,
+        "min": 0.0032734523198018725,
+        "max": 0.003663501764855999,
+        "average": 0.003352829461943456,
+        "median": 0.0032956703416394772,
+        "90percentile": 0.0035696923845945274
+      },
+      "ops": {
+        "min": 305.4878771108924,
+        "max": 272.96288201441797,
+        "average": 298.2555514232309,
+        "median": 303.42840646571955,
+        "90percentile": 280.1361832508679
+      }
+    }
+  },
+  {
+    "title": "testDecodeDeep",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 6262,
+    "threads": 1,
+    "startTime": "2013-04-07T02:28:10Z",
+    "endTime": "2013-04-07T02:29:52Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 103.44999999999997,
+        "min": 0.0016448419035451905,
+        "max": 0.0016783775151708704,
+        "average": 0.0016520281060364097,
+        "median": 0.0016496327052060054,
+        "90percentile": 0.0016656020440753742
+      },
+      "ops": {
+        "min": 607.9611650485447,
+        "max": 595.8135109419605,
+        "average": 605.3165780570325,
+        "median": 606.1955469506289,
+        "90percentile": 600.3835091083417
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.04099988937378,
+        "min": 0.0015753752429125143,
+        "max": 0.001600766516995864,
+        "average": 0.0015816192891947268,
+        "median": 0.0015794474718403945,
+        "90percentile": 0.0015919833889939618
+      },
+      "ops": {
+        "min": 634.7694014482703,
+        "max": 624.7007226742136,
+        "average": 632.263406770377,
+        "median": 633.1327998105476,
+        "90percentile": 628.1472576368653
+      }
+    }
+  },
+  {
+    "title": "testDecodePlain",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 7071,
+    "threads": 1,
+    "startTime": "2013-04-07T02:29:52Z",
+    "endTime": "2013-04-07T02:31:35Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.75000000000006,
+        "min": 0.0014099844435016221,
+        "max": 0.0014509970301230404,
+        "average": 0.001424833828312828,
+        "median": 0.0014220053740630735,
+        "90percentile": 0.0014418045538113471
+      },
+      "ops": {
+        "min": 709.2276830491495,
+        "max": 689.1812865497063,
+        "average": 701.8362282878408,
+        "median": 703.2322227747394,
+        "90percentile": 693.5752820009784
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.33299994468689,
+        "min": 0.0013903266654259378,
+        "max": 0.0014309150092656736,
+        "average": 0.0014047942291710775,
+        "median": 0.0014022769120099975,
+        "90percentile": 0.0014217932479517444
+      },
+      "ops": {
+        "min": 719.2554274240592,
+        "max": 698.8535262574306,
+        "average": 711.8480267320481,
+        "median": 713.1259107494102,
+        "90percentile": 703.3371423310767
+      }
+    }
+  },
+  {
+    "title": "testDecodeXTree",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 3867,
+    "threads": 1,
+    "startTime": "2013-04-07T02:31:35Z",
+    "endTime": "2013-04-07T02:33:17Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 102.15000000000003,
+        "min": 0.0026247737264028905,
+        "max": 0.0027333850530126694,
+        "average": 0.002641582622187743,
+        "median": 0.0026312386863201476,
+        "90percentile": 0.0026868373416084786
+      },
+      "ops": {
+        "min": 380.9852216748777,
+        "max": 365.8467360454118,
+        "average": 378.5609397944198,
+        "median": 380.0491400491396,
+        "90percentile": 372.18479307026035
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.73499965667725,
+        "min": 0.0025567623081212206,
+        "max": 0.002677010602041027,
+        "average": 0.00257913110050885,
+        "median": 0.0025696922464521167,
+        "90percentile": 0.002626971801430303
+      },
+      "ops": {
+        "min": 391.11965818004705,
+        "max": 373.55100470561166,
+        "average": 387.72747915090656,
+        "median": 389.1516586784525,
+        "90percentile": 380.6664386178533
+      }
+    }
+  },
+  {
+    "title": "testEncodeBTree",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 1454,
+    "threads": 1,
+    "startTime": "2013-04-07T02:33:17Z",
+    "endTime": "2013-04-07T02:35:02Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 101.33999999999997,
+        "min": 0.006918844566712479,
+        "max": 0.007035763411279203,
+        "average": 0.006969738651994495,
+        "median": 0.006977303988995861,
+        "90percentile": 0.007025447042640973
+      },
+      "ops": {
+        "min": 144.5328031809153,
+        "max": 142.13098729227815,
+        "average": 143.47740280244724,
+        "median": 143.32183341547585,
+        "90percentile": 142.3396965247189
+      }
+    },
+    "real": {
+      "times": {
+        "total": 100.51100039482117,
+        "min": 0.006857634082621033,
+        "max": 0.006982806132289042,
+        "average": 0.006912723548474634,
+        "median": 0.006920564043472689,
+        "90percentile": 0.0069697386952837035
+      },
+      "ops": {
+        "min": 145.8228870120456,
+        "max": 143.20890213118216,
+        "average": 144.66078282859448,
+        "median": 144.49689269809969,
+        "90percentile": 143.4774019113058
+      }
+    }
+  },
+  {
+    "title": "testEncodeDeep",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 1546,
+    "threads": 1,
+    "startTime": "2013-04-07T02:35:02Z",
+    "endTime": "2013-04-07T02:36:44Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 139.72000000000003,
+        "min": 0.008990944372574371,
+        "max": 0.009223803363518752,
+        "average": 0.009037516170763262,
+        "median": 0.00902328589909443,
+        "90percentile": 0.009133247089262617
+      },
+      "ops": {
+        "min": 111.22302158273399,
+        "max": 108.41514726507721,
+        "average": 110.64987117091323,
+        "median": 110.82437275985671,
+        "90percentile": 109.49008498583567
+      }
+    },
+    "real": {
+      "times": {
+        "total": 98.31999969482422,
+        "min": 0.006304010382599232,
+        "max": 0.0066364812357459614,
+        "average": 0.0063596377551632735,
+        "median": 0.006318240625275369,
+        "90percentile": 0.006516170763876891
+      },
+      "ops": {
+        "min": 158.6291803643391,
+        "max": 150.68226134863724,
+        "average": 157.24166037414918,
+        "median": 158.2719081637409,
+        "90percentile": 153.4643636940287
+      }
+    }
+  },
+  {
+    "title": "testEncodePlain",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 4025,
+    "threads": 1,
+    "startTime": "2013-04-07T02:36:44Z",
+    "endTime": "2013-04-07T02:38:27Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 101.38,
+        "min": 0.0024869565217391283,
+        "max": 0.0026385093167701876,
+        "average": 0.002518757763975155,
+        "median": 0.0025093167701863268,
+        "90percentile": 0.002590062111801245
+      },
+      "ops": {
+        "min": 402.0979020979025,
+        "max": 379.0018832391712,
+        "average": 397.02110869994084,
+        "median": 398.51485148514985,
+        "90percentile": 386.0911270983209
+      }
+    },
+    "real": {
+      "times": {
+        "total": 100.6470000743866,
+        "min": 0.0024688198847800306,
+        "max": 0.0026240993878856207,
+        "average": 0.002500546585699046,
+        "median": 0.002489068315636297,
+        "90percentile": 0.002575155281872483
+      },
+      "ops": {
+        "min": 405.0518250297951,
+        "max": 381.0831268878707,
+        "average": 399.9125654043525,
+        "median": 401.75675119803344,
+        "90percentile": 388.32609708602354
+      }
+    }
+  },
+  {
+    "title": "testEncodeXTree",
+    "label": "JRuby bson_meta_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
+    "invocations": 10,
+    "iterations": 1114,
+    "threads": 1,
+    "startTime": "2013-04-07T02:38:27Z",
+    "endTime": "2013-04-07T02:40:09Z",
+    "tag": "kickoff",
+    "uname": "Darwin denizen.local 12.3.0 x86_64",
+    "bsonCoder": "bson_meta_ruby",
+    "user": {
+      "times": {
+        "total": 100.55000000000007,
+        "min": 0.00894075403949734,
+        "max": 0.009075403949730712,
+        "average": 0.009026032315978462,
+        "median": 0.009026032315978514,
+        "90percentile": 0.009066427289048494
+      },
+      "ops": {
+        "min": 111.84738955823252,
+        "max": 110.18793273986138,
+        "average": 110.7906514172053,
+        "median": 110.79065141720467,
+        "90percentile": 110.29702970297005
+      }
+    },
+    "real": {
+      "times": {
+        "total": 99.79100012779236,
+        "min": 0.008870736058781348,
+        "max": 0.00900628365562891,
+        "average": 0.008957899472871846,
+        "median": 0.008960053886502607,
+        "90percentile": 0.009000000020545946
+      },
+      "ops": {
+        "min": 112.73021690348646,
+        "max": 111.03358924021919,
+        "average": 111.63331348251961,
+        "median": 111.60647164258648,
+        "90percentile": 111.11111085745746
+      }
+    }
+  },
+  {
+    "title": "testDecodeBTree",
     "label": "JRuby bson_ruby 1.9.3 2013-02-21 jruby-1.7.3 java",
     "invocations": 10,
     "iterations": 494,
@@ -6167,45 +7317,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testDecodeBTree",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 1105,
+    "iterations": 1363,
     "threads": 1,
-    "startTime": "2013-04-06T22:18:50Z",
-    "endTime": "2013-04-06T22:20:26Z",
+    "startTime": "2013-04-07T02:00:41Z",
+    "endTime": "2013-04-07T02:02:24Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 93.51,
-        "min": 0.008334841628959271,
-        "max": 0.008895927601809954,
-        "average": 0.008462443438914028,
-        "median": 0.008389140271493213,
-        "90percentile": 0.008751131221719456
+        "total": 99.29000000000002,
+        "min": 0.0071973587674248,
+        "max": 0.007498165810711665,
+        "average": 0.007284666177549525,
+        "median": 0.007234042553191489,
+        "90percentile": 0.007468818782098315
       },
       "ops": {
-        "min": 119.97828447339856,
-        "max": 112.41098677517805,
-        "average": 118.16917976686985,
-        "median": 119.20172599784249,
-        "90percentile": 114.2709410548087
+        "min": 138.9398572884811,
+        "max": 133.3659491193738,
+        "average": 137.27465001510723,
+        "median": 138.23529411764707,
+        "90percentile": 133.88998035363454
       }
     },
     "real": {
       "times": {
-        "total": 93.66594700000002,
-        "min": 0.00834610407239819,
-        "max": 0.008917294117647058,
-        "average": 0.008476556289592763,
-        "median": 0.008397732126696832,
-        "90percentile": 0.008769755656108599
+        "total": 99.46910100000001,
+        "min": 0.00721294644167278,
+        "max": 0.007508250917094644,
+        "average": 0.007297806382978724,
+        "median": 0.007248163242846662,
+        "90percentile": 0.007483210198092443
       },
       "ops": {
-        "min": 119.81638274882636,
-        "max": 112.14164148976873,
-        "average": 117.97243666366815,
-        "median": 119.07976878911717,
-        "90percentile": 114.02826249821992
+        "min": 138.63959868362565,
+        "max": 133.18681155463503,
+        "average": 137.0274775078142,
+        "median": 137.96598758822344,
+        "90percentile": 133.6324884011559
       }
     }
   },
@@ -6213,45 +7363,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testDecodeDeep",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 2395,
+    "iterations": 2735,
     "threads": 1,
-    "startTime": "2013-04-06T22:20:26Z",
-    "endTime": "2013-04-06T22:22:09Z",
+    "startTime": "2013-04-07T02:02:24Z",
+    "endTime": "2013-04-07T02:04:08Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 100.66,
-        "min": 0.0041878914405010445,
-        "max": 0.004229645093945724,
-        "average": 0.004202922755741127,
-        "median": 0.00419832985386221,
-        "90percentile": 0.004229645093945722
+        "total": 99.82,
+        "min": 0.0035978062157221167,
+        "max": 0.003729433272394877,
+        "average": 0.0036497257769652646,
+        "median": 0.0036361974405850067,
+        "90percentile": 0.003711151736745889
       },
       "ops": {
-        "min": 238.78364905284144,
-        "max": 236.4264560710758,
-        "average": 237.92966421617328,
-        "median": 238.18995524614638,
-        "90percentile": 236.42645607107596
+        "min": 277.94715447154505,
+        "max": 268.13725490196106,
+        "average": 273.9931877379283,
+        "median": 275.0125691302164,
+        "90percentile": 269.4581280788176
       }
     },
     "real": {
       "times": {
-        "total": 100.78959900000001,
-        "min": 0.004190031732776618,
-        "max": 0.004237869311064718,
-        "average": 0.004208333987473905,
-        "median": 0.004203371607515658,
-        "90percentile": 0.004235571398747391
+        "total": 100.00037,
+        "min": 0.0036044650822669106,
+        "max": 0.0037338782449725773,
+        "average": 0.0036563206581352835,
+        "median": 0.0036430563071297986,
+        "90percentile": 0.0037173135283363806
       },
       "ops": {
-        "min": 238.661676993393,
-        "max": 235.9676352899993,
-        "average": 237.6237254401617,
-        "median": 237.90425719486547,
-        "90percentile": 236.09565412962598
+        "min": 277.4336766139742,
+        "max": 267.8180525426705,
+        "average": 273.4989880537442,
+        "median": 274.49479659233026,
+        "90percentile": 269.01147626563875
       }
     }
   },
@@ -6259,45 +7409,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testDecodePlain",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 2652,
+    "iterations": 3150,
     "threads": 1,
-    "startTime": "2013-04-06T22:22:09Z",
-    "endTime": "2013-04-06T22:25:03Z",
+    "startTime": "2013-04-07T02:04:08Z",
+    "endTime": "2013-04-07T02:05:51Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 99.6,
-        "min": 0.003710407239818995,
-        "max": 0.0038800904977375644,
-        "average": 0.003755656108597285,
-        "median": 0.0037405731523378533,
-        "90percentile": 0.00383295625942685
+        "total": 100.35999999999999,
+        "min": 0.0031746031746031746,
+        "max": 0.003199999999999995,
+        "average": 0.0031860317460317453,
+        "median": 0.0031841269841269755,
+        "90percentile": 0.0031984126984126995
       },
       "ops": {
-        "min": 269.5121951219519,
-        "max": 257.72594752186535,
-        "average": 266.26506024096386,
-        "median": 267.3387096774197,
-        "90percentile": 260.8952287260205
+        "min": 315.0,
+        "max": 312.5000000000005,
+        "average": 313.8700677560782,
+        "median": 314.05782652043956,
+        "90percentile": 312.65508684863516
       }
     },
     "real": {
       "times": {
-        "total": 170.05270000000002,
-        "min": 0.0037159430618401205,
-        "max": 0.030398681372549023,
-        "average": 0.0064122435897435905,
-        "median": 0.0037460669306184015,
-        "90percentile": 0.017095564856711917
+        "total": 100.51776299999999,
+        "min": 0.0031783292063492065,
+        "max": 0.003206811746031746,
+        "average": 0.0031910400952380948,
+        "median": 0.0031885523809523806,
+        "90percentile": 0.0032051714285714285
       },
       "ops": {
-        "min": 269.11068963064355,
-        "max": 32.896163742912606,
-        "average": 155.95165498695403,
-        "median": 266.94664524718456,
-        "90percentile": 58.4947036486711
+        "min": 314.6307179263698,
+        "max": 311.83620343085164,
+        "average": 313.3774475263641,
+        "median": 313.6219451729103,
+        "90percentile": 311.9957925138838
       }
     }
   },
@@ -6305,45 +7455,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testDecodeXTree",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 1335,
+    "iterations": 1557,
     "threads": 1,
-    "startTime": "2013-04-06T22:25:03Z",
-    "endTime": "2013-04-06T22:27:44Z",
+    "startTime": "2013-04-07T02:05:51Z",
+    "endTime": "2013-04-07T02:07:33Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 100.32999999999998,
-        "min": 0.007408239700374522,
-        "max": 0.007827715355805235,
-        "average": 0.007515355805243444,
-        "median": 0.007441947565543073,
-        "90percentile": 0.007801498127340818
+        "total": 98.37,
+        "min": 0.006262042389210019,
+        "max": 0.006583172768143866,
+        "average": 0.006317919075144509,
+        "median": 0.006294155427103411,
+        "90percentile": 0.00644508670520231
       },
       "ops": {
-        "min": 134.98483316481312,
-        "max": 127.75119617224894,
-        "average": 133.0608990331905,
-        "median": 134.37342727730243,
-        "90percentile": 128.18050888142113
+        "min": 159.69230769230768,
+        "max": 151.90243902439025,
+        "average": 158.27996340347667,
+        "median": 158.877551020408,
+        "90percentile": 155.1569506726458
       }
     },
     "real": {
       "times": {
-        "total": 156.8947,
-        "min": 0.0074158808988764036,
-        "max": 0.050108853183520596,
-        "average": 0.011752411985018727,
-        "median": 0.0074497734082397005,
-        "90percentile": 0.028952096629213483
+        "total": 98.55096,
+        "min": 0.006271953757225434,
+        "max": 0.006607416184971098,
+        "average": 0.006329541425818882,
+        "median": 0.006302294476557482,
+        "90percentile": 0.006461131663455363
       },
       "ops": {
-        "min": 134.84574707119583,
-        "max": 19.95655331279607,
-        "average": 85.08891632413332,
-        "median": 134.2322705941588,
-        "90percentile": 34.53981287804116
+        "min": 159.43995104364046,
+        "max": 151.34509042650447,
+        "average": 157.98932856666238,
+        "median": 158.6723698360462,
+        "90percentile": 154.77164869678694
       }
     }
   },
@@ -6351,45 +7501,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testEncodeBTree",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 231,
+    "iterations": 705,
     "threads": 1,
-    "startTime": "2013-04-06T22:27:44Z",
-    "endTime": "2013-04-06T22:28:24Z",
+    "startTime": "2013-04-07T02:07:33Z",
+    "endTime": "2013-04-07T02:09:16Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 36.870000000000005,
-        "min": 0.01567099567099569,
-        "max": 0.01727272727272731,
-        "average": 0.01596103896103896,
-        "median": 0.015844155844155706,
-        "90percentile": 0.01664502164502164
+        "total": 98.59999999999997,
+        "min": 0.01378723404255323,
+        "max": 0.014624113475177308,
+        "average": 0.013985815602836873,
+        "median": 0.01391489361702128,
+        "90percentile": 0.01435460992907802
       },
       "ops": {
-        "min": 63.81215469613252,
-        "max": 57.89473684210513,
-        "average": 62.65256305939788,
-        "median": 63.1147540983612,
-        "90percentile": 60.07802340702212
+        "min": 72.53086419753066,
+        "max": 68.38021338506303,
+        "average": 71.501014198783,
+        "median": 71.86544342507644,
+        "90percentile": 69.66403162055333
       }
     },
     "real": {
       "times": {
-        "total": 36.935225,
-        "min": 0.01567847619047619,
-        "max": 0.017319766233766236,
-        "average": 0.01598927489177489,
-        "median": 0.01585985930735931,
-        "90percentile": 0.016686887445887446
+        "total": 98.786261,
+        "min": 0.013802462411347518,
+        "max": 0.01466540425531915,
+        "average": 0.014012235602836879,
+        "median": 0.013938112056737588,
+        "90percentile": 0.014387397872340425
       },
       "ops": {
-        "min": 63.78170862085722,
-        "max": 57.73749983128652,
-        "average": 62.54192305583626,
-        "median": 63.05226172693594,
-        "90percentile": 59.92729340584449
+        "min": 72.45084030642697,
+        "max": 68.18768733478994,
+        "average": 71.36619939487335,
+        "median": 71.74572825425139,
+        "90percentile": 69.50527182698451
       }
     }
   },
@@ -6397,45 +7547,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testEncodeDeep",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 633,
+    "iterations": 829,
     "threads": 1,
-    "startTime": "2013-04-06T22:28:24Z",
-    "endTime": "2013-04-06T22:31:18Z",
+    "startTime": "2013-04-07T02:09:16Z",
+    "endTime": "2013-04-07T02:10:59Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 93.13999999999999,
-        "min": 0.014344391785150054,
-        "max": 0.01657187993680886,
-        "average": 0.014714060031595574,
-        "median": 0.014518167456556035,
-        "90percentile": 0.015624012638230671
+        "total": 92.93999999999994,
+        "min": 0.011158021712907118,
+        "max": 0.01129071170084427,
+        "average": 0.011211097708082018,
+        "median": 0.011206272617611606,
+        "90percentile": 0.011272617611580113
       },
       "ops": {
-        "min": 69.71365638766532,
-        "max": 60.34318398474733,
-        "average": 67.96220742967577,
-        "median": 68.87921653971732,
-        "90percentile": 64.00404448938312
+        "min": 89.62162162162163,
+        "max": 88.56837606837702,
+        "average": 89.19733161179262,
+        "median": 89.23573735199119,
+        "90percentile": 88.71054039593447
       }
     },
     "real": {
       "times": {
-        "total": 170.050014,
-        "min": 0.014380647709320694,
-        "max": 0.13494463507109006,
-        "average": 0.02686414123222749,
-        "median": 0.014979193522906793,
-        "90percentile": 0.0752230458135861
+        "total": 99.89578900000001,
+        "min": 0.011906811821471653,
+        "max": 0.01250645476477684,
+        "average": 0.012050155488540411,
+        "median": 0.01196066224366707,
+        "90percentile": 0.012422624246079613
       },
       "ops": {
-        "min": 69.53789705535019,
-        "max": 7.410446509957146,
-        "average": 37.224342716020004,
-        "median": 66.7592683458398,
-        "90percentile": 13.293798319176663
+        "min": 83.98553827790339,
+        "max": 79.95871082638051,
+        "average": 82.98648104175841,
+        "median": 83.60741066235525,
+        "90percentile": 80.49828926569879
       }
     }
   },
@@ -6443,45 +7593,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testEncodePlain",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 1493,
+    "iterations": 1766,
     "threads": 1,
-    "startTime": "2013-04-06T22:31:18Z",
-    "endTime": "2013-04-06T22:37:55Z",
+    "startTime": "2013-04-07T02:10:59Z",
+    "endTime": "2013-04-07T02:12:44Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 100.50999999999988,
-        "min": 0.006651038178164735,
-        "max": 0.006992632283991923,
-        "average": 0.006732083054253173,
-        "median": 0.006684527796383096,
-        "90percentile": 0.006929002009377073
+        "total": 101.8599999999999,
+        "min": 0.0056681766704416705,
+        "max": 0.006013590033975088,
+        "average": 0.005767836919592293,
+        "median": 0.005713476783691945,
+        "90percentile": 0.0060022650056624945
       },
       "ops": {
-        "min": 150.35246727089702,
-        "max": 143.00766283524985,
-        "average": 148.54243358869783,
-        "median": 149.59919839679418,
-        "90percentile": 144.320927984534
+        "min": 176.42357642357658,
+        "max": 166.29001883239164,
+        "average": 173.3752208914198,
+        "median": 175.024777006938,
+        "90percentile": 166.6037735849062
       }
     },
     "real": {
       "times": {
-        "total": 393.45426199999997,
-        "min": 0.006663050234427328,
-        "max": 0.20309983121232417,
-        "average": 0.026353266041527126,
-        "median": 0.006695972538513061,
-        "90percentile": 0.10499152746148695
+        "total": 102.036887,
+        "min": 0.005672080973952435,
+        "max": 0.006030092298980748,
+        "average": 0.005777853171007927,
+        "median": 0.005722352208380521,
+        "90percentile": 0.006016047565118913
       },
       "ops": {
-        "min": 150.08141388955738,
-        "max": 4.923687006684817,
-        "average": 37.945960793785986,
-        "median": 149.34350376264607,
-        "90percentile": 9.524578070043038
+        "min": 176.3021375386285,
+        "max": 165.8349408961829,
+        "average": 173.07466465534176,
+        "median": 174.75331185233165,
+        "90percentile": 166.22209003100429
       }
     }
   },
@@ -6489,45 +7639,45 @@ report = ((typeof report === 'undefined') ? [] : report).concat([
     "title": "testEncodeXTree",
     "label": "Ruby bson_meta_ruby 2.0.0 2013-02-24 ruby-2.0.0-p0 x86_64-darwin12.3.0",
     "invocations": 10,
-    "iterations": 640,
+    "iterations": 722,
     "threads": 1,
-    "startTime": "2013-04-06T22:37:55Z",
-    "endTime": "2013-04-06T22:39:40Z",
+    "startTime": "2013-04-07T02:12:44Z",
+    "endTime": "2013-04-07T02:14:26Z",
     "tag": "kickoff",
     "uname": "Darwin denizen.local 12.3.0 x86_64",
     "bsonCoder": "bson_meta_ruby",
     "user": {
       "times": {
-        "total": 100.45999999999992,
-        "min": 0.015593750000000028,
-        "max": 0.016218749999999994,
-        "average": 0.01569687499999999,
-        "median": 0.015632812499999992,
-        "90percentile": 0.01596093749999996
+        "total": 98.25999999999999,
+        "min": 0.013559556786703708,
+        "max": 0.013656509695290878,
+        "average": 0.013609418282548474,
+        "median": 0.013601108033240909,
+        "90percentile": 0.013656509695290878
       },
       "ops": {
-        "min": 64.12825651302593,
-        "max": 61.65703275529868,
-        "average": 63.70694803902055,
-        "median": 63.96801599200403,
-        "90percentile": 62.65296133137558
+        "min": 73.74872318692485,
+        "max": 73.22515212981735,
+        "average": 73.47852635864035,
+        "median": 73.52342158859518,
+        "90percentile": 73.22515212981735
       }
     },
     "real": {
       "times": {
-        "total": 100.601914,
-        "min": 0.015607840625,
-        "max": 0.016252717187499998,
-        "average": 0.015719049062499997,
-        "median": 0.015658334375,
-        "90percentile": 0.0159873484375
+        "total": 98.41871799999998,
+        "min": 0.013586049861495844,
+        "max": 0.013683695290858727,
+        "average": 0.013631401385041549,
+        "median": 0.013617131578947369,
+        "90percentile": 0.013682175900277007
       },
       "ops": {
-        "min": 64.07036207162706,
-        "max": 61.52817331794232,
-        "average": 63.617079889752404,
-        "median": 63.86375306920217,
-        "90percentile": 62.549459274584606
+        "min": 73.60491167002817,
+        "max": 73.07967465981513,
+        "average": 73.3600289327077,
+        "median": 73.43690513691152,
+        "90percentile": 73.08779007728984
       }
     }
   },
