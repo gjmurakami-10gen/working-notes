@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>native Index - Ruby BSON Performance</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+<img style="float: right;" src="../bson.png" alt="BSON img">
+
+<h1>Ruby BSON Performance</h1>
+
+Select a link to view comparative graphs of BSON performance.
+The performance tests are from <a href="https://github.com/mongodb/mongo-performance">mongo-performance</a>.
+
+<h2>native (Current/Latest)</h2>
+
+<p>native methods for BSON during serialization, both C and Java</p>
+
+<p>also includes the following other optimizations</p>
+
+<ul>
+  <li>native
+    <ul>
+      <li>setint32</li>
+      <li>Integer#to_bson_int32 append</li>
+      <li>Integer#to_bson_int64 append</li>
+      <li>Integer#to_bson_time append</li>
+    </ul>
+  </li>
+  <li>Integer#to_bson test order - test bson_int32? first as most numbers fit
+  </li>
+</ul>
+
+<p>
+Combinations of</p>
+<ul>
+<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+
+<ul>
+<li><a href="test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
+
+<p>Interpretation for comparison:<br>
+Encoding has improved significantly, but not as much as hoped.<br>
+Decoding has not changed from the kickoff measurement as expected.
+</p>
+
+<p>
+Comparison of</p>
+<ul>
+<li>versions (setint32, append, kickoff)</li>
+<li>drivers (mongo-meta-driver)</li>
+<li>extensions (pure ruby, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+
+<ul>
+<li><a href="test_bson_all_setint32_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="test_bson_all_setint32_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="test_bson_all_setint32_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
+
+<p>Back up to <a href="../index.html">Index</a> for Ruby BSON Performance</p>
+
+</body>
+</html>

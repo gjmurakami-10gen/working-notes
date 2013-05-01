@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>native - Ruby BSON Performance</title>
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="../../vendor/flot/excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="test_bson_all_rhapsody.js"></script>
+    <style type="text/css">
+        .plot {
+            width: 900px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<h1>Ruby BSON Performance</h1>
+<img style="float: right;" src="../bson.png" alt="BSON img">
+<h2>native (Current/Latest)</h2>
+
+<p>native methods for BSON during serialization, both C and Java</p>
+
+<p>also includes the following other optimizations</p>
+
+<ul>
+  <li>native
+    <ul>
+      <li>setint32</li>
+      <li>Integer#to_bson_int32 append</li>
+      <li>Integer#to_bson_int64 append</li>
+      <li>Integer#to_bson_time append</li>
+    </ul>
+  </li>
+  <li>Integer#to_bson test order - test bson_int32? first as most numbers fit
+  </li>
+</ul>
+
+<p>
+Combinations of</p>
+<ul>
+<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+
+<p id="sysinfo"></p>
+<p id="label"></p>
+
+<div id="placeholder"></div>
+<div id="Encode"><h2>Encode</h2></div>
+<div id="Decode"><h2>Decode</h2></div>
+<div id="Generated"><h2>Generated</h2></div>
+
+<script type="text/javascript">
+    $(function () {
+        var labelWidth = 180;
+
+        function human(n) {
+            var s = ['E-3', '', 'k', 'm', 'g', 't', 'p'];
+            var e = Math.floor(Math.log(n) / Math.log(1000));
+            return (n / Math.pow(1000, Math.floor(e))).toFixed(1)  + s[e+1];
+        }
+
+        $('#sysinfo').html('<p>' + report[0].uname + '</p><p>' + report[0].startTime + '</p>');
+
+        report.sort(function (a, b) {
+            return b.user.ops.average - a.user.ops.average;
+        });
+
+        coderNames = [
+            'bson_ruby',
+            'bson_c',
+            'bson_java',
+            'bson2_ruby',
+            'bson2_c',
+            'bson2_java'
+        ];
+        testTypes = [
+            'String100Type',
+            'String10000Type',
+            'ArrayType',
+            'DateType',
+            'EmbeddedType',
+            'BooleanType',
+            'IntegerType',
+            'DoubleType',
+            'Plain',
+            'BTree',
+            'XTree'
+        ];
+        testCoders = [
+            'Encode',
+            'Decode'
+        ];
+        testNames = $.map(
+            testCoders.map(function (coder) {
+                return testTypes.map(function (name) {
+                    return [coder, name]
+                });
+            }),
+            function (n) {
+                return n;
+            }
+        );
+        testNames.push(['Generated', 'ObjectId']);
+
+        testNames.forEach(function (testName, testNameIndex) {
+            var testCoder = testName[0], testType = testName[1];
+            var testNameRe = new RegExp(testName.join(''));
+            var testData = report.filter(function(x){return x.title.match(testNameRe);});
+            var id = testData[0].title;
+            var title = testName.join(' ');
+            var plotData = {}, yticks = [];
+            coderNames.forEach(function(name){plotData[name] = [];});
+            for (var i = 0; i < testData.length; i++) {
+                var element = testData[i];
+                var ops = element.user.ops.average;
+                var label = element.label.split(' ');
+                var ylabel = [element.bsonCoder, label[4].split('-')[0]].join(' ');
+                plotData[element.bsonCoder].push([ops, i, 'tag: ' + element.tag, 'label: ' + element.label]);
+                yticks.push([i+0.5, ylabel]);
+            }
+            $('#' + testCoder).append('<div><h3>' + title + '</h3>' +
+                '<div id="' + id + '" class="plot"></div></div>'
+            );
+            var plotSpec = coderNames.map(function(name){
+                return {
+                   data: plotData[name],
+                   bars: { horizontal: true, show: true },
+                   label: name
+                }
+            });
+            $.plot(
+                    $('#' + id),
+                    plotSpec,
+                    {
+                        xaxis: {
+                            tickDecimals: 0
+                        },
+                        yaxis: {
+                            ticks: yticks,
+                            max: testData.length,
+                            labelWidth: labelWidth
+                        },
+                        grid: {
+                            hoverable: true
+                        }
+                    }
+            );
+        });
+
+        function showTooltip(x, y, contents) {
+            $('<div id="tooltip">' + contents + '</div>').css({
+                position: 'absolute',
+                display: 'none',
+                top: y + 5,
+                left: x + 5,
+                border: '1px solid #fdd',
+                padding: '2px',
+                'background-color': '#fee',
+                opacity: 0.80
+            }).appendTo('body').fadeIn(200);
+        }
+
+        var previousPoint = null;
+        $('.plot').bind('plothover', function (event, pos, item) {
+            if (true || $('#enableTooltip:checked').length > 0) {
+                if (item) {
+                    if (previousPoint != item.dataIndex) {
+                        previousPoint = item.dataIndex;
+                        $('#tooltip').remove();
+                        var x = item.datapoint[0].toFixed(2),
+                            y = item.datapoint[1].toFixed(2);
+                        var data = item.series.data[item.dataIndex];
+                        showTooltip(labelWidth, item.pageY,
+                            human(data[0]) +  ' ops/s<br/>' + data[2] + ' <br/>' + data[3]);
+                    }
+                }
+                else {
+                    $('#tooltip').remove();
+                    previousPoint = null;
+                }
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
