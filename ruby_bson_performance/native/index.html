@@ -25,7 +25,7 @@ The performance tests are from <a href="https://github.com/mongodb/mongo-perform
 
 <p>Also includes the following other optimizations.</p>
 <p>Gain is for the specific operation calculated by ((1 - new_time) / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
-<p>Some optimizations (Integer#to_bson_key, ) were previously included in the set_int32 measurement, but are expanded upon here.</p>
+<p>Some optimizations (Integer#to_bson_key, String#set_int32, Integer#to_bson) were previously included in the set_int32 measurement, but are expanded upon here.</p>
 
 <table class="optim">
     <tr class="optim">
