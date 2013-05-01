@@ -2,13 +2,15 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Append - Ruby BSON Performance</title>
+    <title>native - Ruby BSON Performance</title>
     <!--[if lte IE 8]>
     <script language="javascript" type="text/javascript" src="../../vendor/flot/excanvas.min.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="../kickoff/test_bson_all_quartet.js"></script>
-    <script language="javascript" type="text/javascript" src="test_bson_all_quartet.js"></script>
+    <script language="javascript" type="text/javascript" src="../setint32/test_bson_all_denizen.js"></script>
+    <script language="javascript" type="text/javascript" src="../append/test_bson_all_denizen.js"></script>
+    <script language="javascript" type="text/javascript" src="../kickoff/test_bson_all_denizen.js"></script>
+    <script language="javascript" type="text/javascript" src="test_bson_all_denizen.js"></script>
     <style type="text/css">
         .plot {
             width: 900px;
@@ -19,17 +21,32 @@
 <body>
 <h1>Ruby BSON Performance</h1>
 <img style="float: right;" src="../bson.png" alt="BSON img">
-<h2>Append</h2>
+<h2>native (Current/Latest)</h2>
 
-<p>Append with method to_bson(encoded) for serialization</p>
+<p>native methods for BSON during serialization, both C and Java</p>
+
+<p>also includes the following other optimizations</p>
+
+<ul>
+  <li>native
+    <ul>
+      <li>setint32</li>
+      <li>Integer#to_bson_int32 append</li>
+      <li>Integer#to_bson_int64 append</li>
+      <li>Integer#to_bson_time append</li>
+    </ul>
+  </li>
+  <li>Integer#to_bson test order - test bson_int32? first as most numbers fit
+  </li>
+</ul>
 
 <p>
 Comparison of</p>
 <ul>
-<li>versions (append, kickoff)</li>
-<li>drivers (mongo-meta-driver)</li>
-<li>extensions (pure ruby, meta native)</li>
-<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    <li>versions (native, setint32, append, kickoff)</li>
+    <li>drivers (bson2 - mongo-meta-driver) renamed</li>
+    <li>extensions (pure ruby, bson2-meta native)</li>
+    <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
 </ul>
 
 <p id="sysinfo"></p>
@@ -57,12 +74,17 @@ Comparison of</p>
         });
 
         tagNames = [
+            'native',
+            'setint32',
             'append',
             'kickoff'
         ];
         coderNames = [
             'bson_meta_ruby',
-            'bson_meta_c'
+            'bson_meta_c',
+            'bson2_ruby',
+            'bson2_c',
+            'bson2_java'
         ];
         testTypes = [
             'String100Type',

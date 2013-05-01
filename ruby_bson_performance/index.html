@@ -7,7 +7,6 @@
     <script language="javascript" type="text/javascript" src="../vendor/flot/excanvas.min.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="../vendor/flot/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="../vendor/flot/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="test_bson_all_rhapsody.js"></script>
     <style type="text/css">
     </style>
 </head>
@@ -22,7 +21,62 @@ The performance tests are from <a href="https://github.com/mongodb/mongo-perform
 
 <h1>Index</h1>
 
-<h2>Append (Current/Latest)</h2>
+<h2>setint32 (Current/Latest)</h2>
+
+<p>setint32 method for BSON sizes during serialization</p>
+
+<p>also includes the following other optimizations</p>
+
+<ul>
+  <li>native
+    <ul>
+      <li>setint32</li>
+      <li>Integer#to_bson_int32 append</li>
+      <li>Integer#to_bson_int64 append</li>
+      <li>Integer#to_bson_time append</li>
+    </ul>
+  </li>
+  <li>Integer#to_bson test order - test bson_int32? first as most numbers fit
+  </li>
+</ul>
+
+<p>
+Combinations of</p>
+<ul>
+<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+
+<p><a href="setint32/index.html">setint32 index</a></p>
+
+<ul>
+<li><a href="setint32/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="setint32/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="setint32/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
+
+<p>Interpretation for comparison:<br>
+Encoding has improved significantly, but not as much as hoped.<br>
+Decoding has not changed from the kickoff measurement as expected.
+</p>
+
+<p>
+Comparison of</p>
+<ul>
+<li>versions (setint32, append, kickoff)</li>
+<li>drivers (mongo-meta-driver)</li>
+<li>extensions (pure ruby, meta native)</li>
+<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+</ul>
+
+<ul>
+<li><a href="setint32/test_bson_all_setint32_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+<li><a href="setint32/test_bson_all_setint32_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+<li><a href="setint32/test_bson_all_setint32_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+</ul>
+
+<h2>Append</h2>
 
 <p>Append with method to_bson(encoded) for serialization</p>
 
@@ -34,13 +88,12 @@ significant improvement is needed still to catch up with bson_c and bson_java.
 </p>
 
 <p>
-Combinations of
+Combinations of</p>
 <ul>
 <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
 <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
 <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
 </ul>
-</p>
 
 <p><a href="append/index.html">Append index</a></p>
 
@@ -56,14 +109,13 @@ Decoding has not changed from the kickoff measurement as expected.
 </p>
 
 <p>
-Comparison of
+Comparison of</p>
 <ul>
 <li>versions (append, kickoff)</li>
 <li>drivers (mongo-meta-driver)</li>
 <li>extensions (pure ruby, meta native)</li>
 <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
 </ul>
-</p>
 
 <ul>
 <li><a href="append/test_bson_all_append_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
@@ -83,13 +135,12 @@ however significant improvement is needed to catch up with bson_c and bson_java.
 </p>
 
 <p>
-Combinations of
+Combinations of</p>
 <ul>
 <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
 <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
 <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
 </ul>
-</p>
 
 <p><a href="kickoff/index.html">Kickoff index</a></p>
 

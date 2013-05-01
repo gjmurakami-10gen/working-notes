@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Append - Ruby BSON Performance</title>
+    <title>setint32 - Ruby BSON Performance</title>
     <!--[if lte IE 8]>
     <script language="javascript" type="text/javascript" src="../../vendor/flot/excanvas.min.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="../../vendor/flot/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="../append/test_bson_all_quartet.js"></script>
     <script language="javascript" type="text/javascript" src="../kickoff/test_bson_all_quartet.js"></script>
     <script language="javascript" type="text/javascript" src="test_bson_all_quartet.js"></script>
     <style type="text/css">
@@ -19,14 +20,29 @@
 <body>
 <h1>Ruby BSON Performance</h1>
 <img style="float: right;" src="../bson.png" alt="BSON img">
-<h2>Append</h2>
+<h2>setint32 (Current/Latest)</h2>
 
-<p>Append with method to_bson(encoded) for serialization</p>
+<p>setint32 method for BSON sizes during serialization</p>
+
+<p>also includes the following other optimizations</p>
+
+<ul>
+  <li>native
+    <ul>
+      <li>setint32</li>
+      <li>Integer#to_bson_int32 append</li>
+      <li>Integer#to_bson_int64 append</li>
+      <li>Integer#to_bson_time append</li>
+    </ul>
+  </li>
+  <li>Integer#to_bson test order - test bson_int32? first as most numbers fit
+  </li>
+</ul>
 
 <p>
 Comparison of</p>
 <ul>
-<li>versions (append, kickoff)</li>
+<li>versions (setint32, append, kickoff)</li>
 <li>drivers (mongo-meta-driver)</li>
 <li>extensions (pure ruby, meta native)</li>
 <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
@@ -57,6 +73,7 @@ Comparison of</p>
         });
 
         tagNames = [
+            'setint32',
             'append',
             'kickoff'
         ];
