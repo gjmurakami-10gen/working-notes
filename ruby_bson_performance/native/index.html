@@ -21,9 +21,7 @@ The performance tests are from <a href="https://github.com/mongodb/mongo-perform
 
 <h2>native (Current/Latest)</h2>
 
-<p>native methods for BSON during serialization, both C and Java</p>
-
-<p>Also includes the following other optimizations.</p>
+<p>Native methods for BSON during encode/decode, both C and Java, also includes the following other optimizations.</p>
 <p>Gain is for the specific operation calculated by ((1 - new_time) / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
 <p>Some optimizations (Integer#to_bson_key, String#set_int32, Integer#to_bson) were previously included in the set_int32 measurement, but are expanded upon here.</p>
 
@@ -72,7 +70,7 @@ The performance tests are from <a href="https://github.com/mongodb/mongo-perform
     </tr>
     <tr class="optim">
         <td class="optim">C</td>
-        <td class="optim">rb_integer_to_bson_key_large</td>
+        <td class="optim">rb_integer_to_bson</td>
         <td class="optim">Integer#to_bson_key for large 0.50, small 0.24</td>
         <td class="optim">0.50</td>
     </tr>
