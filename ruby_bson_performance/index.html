@@ -1,7 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Ruby BSON Performance</title>
     <!--[if lte IE 8]>
     <script language="javascript" type="text/javascript" src="../vendor/flot/excanvas.min.js"></script><![endif]-->
@@ -14,347 +14,773 @@
             padding: 2px;
         }
     </style>
-</head>
-<body>
-<img style="float: right;" src="bson.png" alt="BSON img">
-
-<h1>Ruby BSON Performance</h1>
-
-Select a link to view comparative graphs of BSON performance.
-The performance tests are from <a href="https://github.com/mongodb/mongo-performance">mongo-performance</a>.
-
-<h1>Index</h1>
-
-<h2>native (Current/Latest)</h2>
-
-<p>Native methods for BSON during encode/decode, both C and Java, also includes the following other optimizations.</p>
-<p>Gain is for the specific operation calculated by ((1 - new_time) / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
-<p>Some optimizations (Integer#to_bson_key, String#set_int32, Integer#to_bson) were previously included in the set_int32 measurement, but are expanded upon here.</p>
-
-<table class="optim">
-    <tr class="optim">
-        <th class="optim">language</th>
-        <th class="optim">method</th>
-        <th class="optim">notes</th>
-        <th class="optim">gain</th>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Ruby</td>
-        <td class="optim">Integer#to_bson_key</td>
-        <td class="optim">uses 1024 BSON_ARRAY_INDEXES</td>
-        <td class="optim">0.57</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Ruby</td>
-        <td class="optim">String#set_int32</td>
-        <td class="optim">used by Encodable#encode_with_placeholder_and_null to set BSON int32 size</td>
-        <td class="optim">0.26</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Ruby</td>
-        <td class="optim">Integer#to_bson</td>
-        <td class="optim">order to test for smaller first</td>
-        <td class="optim">0.18</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Ruby</td>
-        <td class="optim">NilClass#to_bson</td>
-        <td class="optim">eliminate append of empty string</td>
-        <td class="optim">0.12</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_string_check_for_illegal_characters</td>
-        <td class="optim">String#check_for_illegal_characters!</td>
-        <td class="optim">0.15</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_float_to_bson</td>
-        <td class="optim">Float#to_bson</td>
-        <td class="optim">0.61</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_integer_to_bson</td>
-        <td class="optim">Integer#to_bson_key for large 0.50, small 0.24</td>
-        <td class="optim">0.50</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_symbol_to_bson</td>
-        <td class="optim">Symbol#to_bson</td>
-        <td class="optim">0.34</td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_float_to_bson</td>
-        <td class="optim">Float#from_bson_double</td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_string_to_bson_string</td>
-        <td class="optim">String#to_utf8_binary</td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_object_id_generator_next</td>
-        <td class="optim">ObjectId#next</td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_true_class_to_bson</td>
-        <td class="optim">TrueClass#to_bson</td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">C</td>
-        <td class="optim">rb_false_class_to_bson</td>
-        <td class="optim">FalseClass#to_bson</td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">bool toBson</td>
-        <td class="optim">TrueClass#to_bson FalseClass#to_bson</td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">number toBson</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">double toBsonDouble</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">generator next</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">generator nextObjectId</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">integer toBson</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">integer toBsonInt</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">integer isInt32</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">integer toBsonInt32</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">integer toBsonInt64</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">time toBson</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-    <tr class="optim">
-        <td class="optim">Java</td>
-        <td class="optim">time toBsonTime</td>
-        <td class="optim"></td>
-        <td class="optim"></td>
-    </tr>
-</table>
-
-<p>
-    Combinations of</p>
-<ul>
-    <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
-    <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
-    <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<p><a href="native/index.html">Native index</a></p>
-
-<ul>
-    <li><a href="native/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-    <li><a href="native/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-    <li><a href="native/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-<p>Interpretation for comparison:<br>
-    Encoding has improved significantly, but not as much as hoped.<br>
-    Decoding has not changed from the kickoff measurement as expected.
-</p>
-
-<p>
-    Comparison of</p>
-<ul>
-    <li>versions (setint32, append, kickoff)</li>
-    <li>drivers (mongo-meta-driver)</li>
-    <li>extensions (pure ruby, meta native)</li>
-    <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<ul>
-    <li><a href="native/test_bson_all_native_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-    <li><a href="native/test_bson_all_native_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-    <li><a href="native/test_bson_all_native_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-<h2>setint32</h2>
-
-<p>setint32 method for BSON sizes during serialization</p>
-
-<p>also includes the following other optimizations</p>
-
-<ul>
-  <li>native
+  </head>
+  <body>
+    <img style="float: right;" src="bson.png" alt="BSON img">
+    <h1>Ruby BSON Performance</h1>
+    Select a link to view comparative graphs of BSON performance.
+    The performance tests are from <a
+      href="https://github.com/mongodb/mongo-performance">mongo-performance</a>.
+    <h2>Performance Tuning</h2>
+    <p>A common interview question is:&nbsp; Suppose that your
+      application is too slow - how do you improve it?&nbsp; Hopefully
+      the answer will involve<br>
+    </p>
+    <ol>
+      <li><b>measure</b> by <u><i>benchmarking</i></u></li>
+      <li><b>profile</b> to locate <i><u>performance problems</u></i><br>
+      </li>
+      <li><b>fix</b> with <u><i>A/B testing</i></u></li>
+      <li><b>repeat</b> with iterative improvement until fast<br>
+      </li>
+    </ol>
+    <p>Improving Ruby BSON Performance is a good case study.<br>
+    </p>
+    <h3>Profiling and performance tools</h3>
+    <b><b>Ruby Benchmark module</b></b> - <a
+href="http://www.ruby-doc.org/stdlib-2.0/libdoc/benchmark/rdoc/Benchmark.html">http://www.ruby-doc.org/stdlib-2.0/libdoc/benchmark/rdoc/Benchmark.html</a>
+    - The&nbsp;<a
+href="http://www.ruby-doc.org/stdlib-2.0/libdoc/benchmark/rdoc/Benchmark.html"
+      style="padding: 0px; margin: 0px; text-decoration: none
+      !important; opacity: 1; border-bottom-style: dotted;
+      border-bottom-color: rgb(205, 205, 205); border-bottom-width: 1px;
+      color: rgb(51, 51, 51) !important; font-family: Georgia, 'Times
+      New Roman', serif; font-size: 16px; font-style: normal;
+      font-variant: normal; font-weight: normal; letter-spacing: normal;
+      line-height: 24px; orphans: auto; text-align: start; text-indent:
+      0px; text-transform: none; white-space: normal; widows: auto;
+      word-spacing: 0px; -webkit-text-stroke-width: 0px;
+      background-color: rgb(255, 255, 255);">Benchmark</a>&nbsp;module
+    provides methods to measure and report the time used to execute Ruby
+    code.<b><br>
+      <br>
+      Ruby profiler</b> - <a
+      href="http://www.tutorialspoint.com/ruby/ruby_profiler.htm">http://www.tutorialspoint.com/ruby/ruby_profiler.htm</a>
+    - default slow event-based profiler<br>
+    &nbsp;&nbsp;&nbsp; ruby -r profile [programfile] [arguments]<b><br>
+      <br>
+      ruby-prof</b> - <a href="http://ruby-prof.rubyforge.org/">http://ruby-prof.rubyforge.org/</a>
+    -
+    <meta charset="utf-8">
+    ruby-prof is a fast code profiler for Ruby.<br>
     <ul>
-      <li>setint32</li>
-      <li>Integer#to_bson_int32 append</li>
-      <li>Integer#to_bson_int64 append</li>
-      <li>Integer#to_bson_time append</li>
+      <li>Flat Profiles - similar to the reports generated by the
+        standard Ruby profiler.</li>
+      <li>Graph profiles - similar to GProf, these show how long a
+        method runs, which methods call it and which methods it calls.</li>
+      <li>Call tree profiles - outputs results in the calltree format
+        suitable for the KCacheGrind profiling tool.</li>
     </ul>
-  </li>
-  <li>Integer#to_bson test order - test bson_int32? first as most numbers fit
-  </li>
-</ul>
-
-<p>
-Combinations of</p>
-<ul>
-<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
-<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
-<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<p><a href="setint32/index.html">setint32 index</a></p>
-
-<ul>
-<li><a href="setint32/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-<li><a href="setint32/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-<li><a href="setint32/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-<p>Interpretation for comparison:<br>
-Encoding has improved significantly, but not as much as hoped.<br>
-Decoding has not changed from the kickoff measurement as expected.
-</p>
-
-<p>
-Comparison of</p>
-<ul>
-<li>versions (setint32, append, kickoff)</li>
-<li>drivers (mongo-meta-driver)</li>
-<li>extensions (pure ruby, meta native)</li>
-<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<ul>
-<li><a href="setint32/test_bson_all_setint32_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-<li><a href="setint32/test_bson_all_setint32_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-<li><a href="setint32/test_bson_all_setint32_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-<h2>Append</h2>
-
-<p>Append with method to_bson(encoded) for serialization</p>
-
-<p>Interpretation for combinations:<br>
-Encoding has improved but still looks disappointing,
-the BSON 2.0/mongo-meta-driver performance still lags considerably.<br>
-Decoding has not changed from the kickoff measurement as expected,
-significant improvement is needed still to catch up with bson_c and bson_java.
-</p>
-
-<p>
-Combinations of</p>
-<ul>
-<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
-<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
-<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<p><a href="append/index.html">Append index</a></p>
-
-<ul>
-<li><a href="append/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-<li><a href="append/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-<li><a href="append/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-<p>Interpretation for comparison:<br>
-Encoding has improved significantly, but not as much as hoped.<br>
-Decoding has not changed from the kickoff measurement as expected.
-</p>
-
-<p>
-Comparison of</p>
-<ul>
-<li>versions (append, kickoff)</li>
-<li>drivers (mongo-meta-driver)</li>
-<li>extensions (pure ruby, meta native)</li>
-<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<ul>
-<li><a href="append/test_bson_all_append_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-<li><a href="append/test_bson_all_append_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-<li><a href="append/test_bson_all_append_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-<h2>Kickoff</h2>
-
-<p>Kickoff for BSON 2.0 (mongo-meta-driver) - Initial Ruby BSON combination comparison</p>
-
-<p>Interpretation for combinations:<br>
-Encoding looks disappointing for a kickoff measurement,
-the BSON 2.0/mongo-meta-driver performance lags considerably.<br>
-Decoding looks fairly good for a kickoff measurement,
-however significant improvement is needed to catch up with bson_c and bson_java.
-</p>
-
-<p>
-Combinations of</p>
-<ul>
-<li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
-<li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
-<li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
-</ul>
-
-<p><a href="kickoff/index.html">Kickoff index</a></p>
-
-<ul>
-<li><a href="kickoff/test_bson_all_osprey.html">Intel Xeon CPU X5650 @ 2.67GHz - Mac Pro, Mid 2010 (Osprey)</a></li>
-<li><a href="kickoff/test_bson_all_denizen.html">Intel Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
-<li><a href="kickoff/test_bson_all_rhapsody.html">Intel Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
-<li><a href="kickoff/test_bson_all_quartet.html">Intel Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
-</ul>
-
-</body>
+    <b>perftools.rb</b> - <a
+      href="https://github.com/tmm1/perftools.rb">https://github.com/tmm1/perftools.rb</a>
+    - gperftools for Ruby code - sampling profiler with minimal overhead
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <p><b>kcachegrind</b> - <a
+        href="http://kcachegrind.sourceforge.net/html/Home.html">http://kcachegrind.sourceforge.net/html/Home.html</a>
+      - Call Graph View, including proportional visualization<br>
+    </p>
+    <p><b>Ruby GC module</b> - <a
+        href="http://www.ruby-doc.org/core-2.0.0/GC.html">http://www.ruby-doc.org/core-2.0.0/GC.html</a>
+      -
+      <meta charset="utf-8">
+      The&nbsp;<a href="http://www.ruby-doc.org/core-2.0.0/GC.html"
+        style="padding: 0px; margin: 0px; text-decoration: none
+        !important; opacity: 1; border-bottom-style: dotted;
+        border-bottom-color: rgb(205, 205, 205); border-bottom-width:
+        1px; color: rgb(51, 51, 51) !important; font-family: Georgia,
+        'Times New Roman', serif; font-size: 16px; font-style: normal;
+        font-variant: normal; font-weight: normal; letter-spacing:
+        normal; line-height: 24px; orphans: auto; text-align: start;
+        text-indent: 0px; text-transform: none; white-space: normal;
+        widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;
+        background-color: rgb(255, 255, 255);">GC</a>&nbsp;module
+      provides an interface to Ruby’s mark and sweep garbage collection
+      mechanism.<br>
+    </p>
+    <h3>Other language tools</h3>
+    <p><b>GNU gprof</b> - <a href="http://en.wikipedia.org/wiki/Gprof">http://en.wikipedia.org/wiki/Gprof</a>
+      -
+      <meta charset="utf-8">
+      Gprof&nbsp;is a&nbsp;performance analysis&nbsp;tool
+      for&nbsp;Unix&nbsp;applications.</p>
+    <p><b>Valgrind</b> - <a
+        href="http://en.wikipedia.org/wiki/Valgrind">http://en.wikipedia.org/wiki/Valgrind
+      </a>-
+      <meta charset="utf-8">
+      Valgrind is a&nbsp;GPL&nbsp;licensed&nbsp;programming tool&nbsp;for&nbsp;memory
+      debugging,&nbsp;memory leak&nbsp;detection, and&nbsp;profiling.</p>
+    <h2>Ruby BSON case study</h2>
+    <h3>Profile</h3>
+    <p><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/encode-ruby-prof.out.txt">bench_test.rb</a>:853<br>
+    </p>
+    <tt>&nbsp; def gc_allocated<br>
+      &nbsp;&nbsp;&nbsp; gc_stat = []<br>
+      &nbsp;&nbsp;&nbsp; GC.start<br>
+      &nbsp;&nbsp;&nbsp; gc_stat &lt;&lt; GC.stat<br>
+      &nbsp;&nbsp;&nbsp; result = yield<br>
+      &nbsp;&nbsp;&nbsp; GC.start<br>
+      &nbsp;&nbsp;&nbsp; gc_stat &lt;&lt; GC.stat<br>
+      &nbsp;&nbsp;&nbsp; [ result, gc_stat[1][:total_allocated_object] -
+      gc_stat[0][:total_allocated_object] ]<br>
+      &nbsp; end<br>
+      <br>
+      &nbsp; def ruby_prof(label, bson, file_name)</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; allocated = nil</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; line_limit = nil</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; profile = nil</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; Benchmark.bm(@label_width) do |bench|</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bench.report(label) do</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result,
+      allocated = gc_allocated do</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      RubyProf.start</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      line_limit = yield</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      profile = RubyProf.stop</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; puts "allocated: #{allocated}
+      allocated/line: #{allocated/line_limit}"</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; File.open(file_name, 'w') do |f|</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      RubyProf::FlatPrinter.new(profile).print(f)</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      RubyProf::GraphPrinter.new(profile).print(f, {})</tt><tt><br>
+    </tt><tt>&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+    </tt><tt>&nbsp; end<br>
+      &nbsp; <br>
+      &nbsp; def test_encode_ruby_prof<br>
+      &nbsp;&nbsp;&nbsp; twitter = get_twitter_data(10_000, false)<br>
+      &nbsp;&nbsp;&nbsp; ruby_prof('test encode ruby prof', false,
+      'encode-ruby-prof.out') do<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; twitter.each {|doc| doc.to_bson }<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; twitter.size<br>
+      &nbsp;&nbsp;&nbsp; end<br>
+      &nbsp; end<br>
+      <br>
+    </tt><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/bench_test.out.txt">bench_test.out</a>:46<br>
+    <tt></tt>
+    <blockquote><tt>BenchTest#test_encode_ruby_prof = </tt><br>
+      <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        user&nbsp;&nbsp;&nbsp;&nbsp;
+        system&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; real</tt><br>
+      <tt>test encode ruby
+        prof&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        8.550000&nbsp;&nbsp; 6.490000&nbsp; 15.040000 ( 15.037680)</tt><br>
+      <tt>allocated: 1645382 allocated/line: 164</tt><br>
+    </blockquote>
+    $ head -1 ~/10gen/training/data/sampledata/twitter.json<tt><br>
+    </tt>
+    <blockquote><tt>{"text":"eu preciso de terminar de fazer a minha
+        tabela, est\u00e1 muito foda
+        **","in_reply_to_status_id":null,"retweet_count":null,"contributors":null,"created_at":"Thu
+        Sep 02 18:11:23 +0000
+        2010","geo":null,"source":"web","coordinates":null,"in_reply_to_screen_name":null,"truncated":false,"entities":{"user_mentions":[],"urls":[],"hashtags":[]},"retweeted":false,"place":null,"user":{"friends_count":73,"profile_sidebar_fill_color":"768575","location":"","verified":false,"follow_request_sent":null,"favourites_count":1,"profile_sidebar_border_color":"1c9dbd","profile_image_url":"http://a2.twimg.com/profile_images/1036412454/OgAAADXK9q6kaxrvfwQTINH66RVLAH9YHb-veRTA4FaWb9KtbGGV_yKTGzmvzTfJidqAb5gK_mpspIE-MIvAASGH2CwAm1T1UIPQk0-HS8x_TV5kdnW30nch7ODk-1_normal.jpg","geo_enabled":false,"created_at":"Fri
+        Jul 03 21:44:05 +0000 2009","description":"s\u00f3 os loucos
+        sabem
+        (:","time_zone":"Brasilia","url":"http://http://www.orkut.com.br/Main#Profile?uid=1433295880233078770","screen_name":"Bia_cunha1","notifications":null,"profile_background_color":"081114","listed_count":0,"lang":"en","profile_background_image_url":"http://a1.twimg.com/profile_background_images/133178546/biatwitter.jpg","statuses_count":3504,"following":null,"profile_text_color":"25b8c2","protected":false,"show_all_inline_media":false,"profile_background_tile":true,"name":"Beatriz
+        Helena
+Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_count":102,"id":53507833,"profile_use_background_image":true,"utc_offset":-10800},"favorited":false,"in_reply_to_user_id":null,"id":22819396900}</tt><br>
+    </blockquote>
+    $ head -16 <a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/encode-ruby-prof.out.txt">encode-ruby-prof.out</a><tt></tt>
+    <blockquote><tt>Thread ID: 70292789921500</tt><br>
+      <tt>Fiber ID: 70292789615540</tt><br>
+      <tt>Total: 14.823148</tt><br>
+      <tt>Sort by: self_time</tt><br>
+      <br>
+      <tt>&nbsp;%self&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        self&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait&nbsp;&nbsp;&nbsp;&nbsp;
+        child&nbsp;&nbsp;&nbsp;&nbsp; calls&nbsp; name</tt><br>
+      <tt>&nbsp;12.53&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        3.259&nbsp;&nbsp;&nbsp;&nbsp; 1.857&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 1.403&nbsp;&nbsp;
+        811819&nbsp;&nbsp; BSON::String#to_bson_string </tt><br>
+      <tt>&nbsp;12.08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        4.266&nbsp;&nbsp;&nbsp;&nbsp; 1.791&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 2.475&nbsp;&nbsp;
+        602230&nbsp;&nbsp; BSON::String#to_bson_cstring </tt><br>
+      <tt>&nbsp; 9.46&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        1.403&nbsp;&nbsp;&nbsp;&nbsp; 1.403&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 0.000&nbsp;&nbsp;
+        811819&nbsp;&nbsp; BSON::String#to_utf8_binary </tt><br>
+      <tt>&nbsp; 7.37&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        5.358&nbsp;&nbsp;&nbsp;&nbsp; 1.093&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 4.266&nbsp;&nbsp;
+        602230&nbsp;&nbsp; BSON::String#to_bson_key </tt><br>
+      <tt>&nbsp; 4.89&nbsp;&nbsp;&nbsp;&nbsp;
+        14.680&nbsp;&nbsp;&nbsp;&nbsp; 0.725&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp; 13.955&nbsp;&nbsp;&nbsp; 44150&nbsp;
+        *Hash#each </tt><br>
+      <tt>&nbsp; 3.55&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        0.526&nbsp;&nbsp;&nbsp;&nbsp; 0.526&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 0.000&nbsp;&nbsp;
+        240396&nbsp;&nbsp; BSON::Integer#bson_int32? </tt><br>
+      <tt>&nbsp; 2.78&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        0.412&nbsp;&nbsp;&nbsp;&nbsp; 0.412&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 0.000&nbsp;&nbsp;
+        602230&nbsp;&nbsp; BSON::String#check_for_illegal_characters! </tt><br>
+      <tt>&nbsp; 2.58&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        0.383&nbsp;&nbsp;&nbsp;&nbsp; 0.383&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 0.000&nbsp;&nbsp;
+        596328&nbsp;&nbsp; String#bytesize </tt><br>
+      <tt>&nbsp; 2.58&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        3.474&nbsp;&nbsp;&nbsp;&nbsp; 0.382&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 3.092&nbsp;&nbsp;
+        209589&nbsp;&nbsp; BSON::String#to_bson </tt><br>
+      <tt>&nbsp; 2.45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        0.778&nbsp;&nbsp;&nbsp;&nbsp; 0.364&nbsp;&nbsp;&nbsp;&nbsp;
+        0.000&nbsp;&nbsp;&nbsp;&nbsp; 0.414&nbsp;&nbsp;
+        120198&nbsp;&nbsp; BSON::Integer#to_bson</tt><br>
+    </blockquote>
+    <p></p>
+    <p>examine call tree for <a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/encode-ruby-prof.out.txt">encode-ruby-prof.out</a><br>
+    </p>
+    <p><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/encode-ruby-prof.out.txt">bench_test.rb</a>:86<br>
+    </p>
+    <p><tt>&nbsp; def old_array_index</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; BSON.module_eval &lt;&lt;-EVAL</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module Array</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def
+        to_bson(encoded = ''.force_encoding(BINARY), hint = nil)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        encode_with_placeholder_and_null(BSON_ADJUST, encoded) do
+        |encoded|</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        each_with_index do |value, index|</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        encoded &lt;&lt; value.bson_type</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        index.to_s.to_bson_key(encoded)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        value.to_bson(encoded)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; EVAL</tt><tt><br>
+      </tt><tt>&nbsp; end</tt><tt><br>
+      </tt><tt><br>
+      </tt><tt>&nbsp; def new_array_index_optimize</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; BSON.module_eval &lt;&lt;-EVAL</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module Array</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @@_BSON_INDEX_SIZE = 1024</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @@_BSON_INDEX_ARRAY = ::Array.new(@@_BSON_INDEX_SIZE){|i|
+        (i.to_s.force_encoding(BINARY) &lt;&lt;
+        NULL_BYTE).freeze}.freeze</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def
+        to_bson(encoded = ''.force_encoding(BINARY), hint = nil)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        encode_with_placeholder_and_null(BSON_ADJUST, encoded) do
+        |encoded|</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        each_with_index do |value, index|</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        encoded &lt;&lt; value.bson_type</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        if index &lt; @@_BSON_INDEX_SIZE</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        encoded &lt;&lt; @@_BSON_INDEX_ARRAY[index]</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        else</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        index.to_s.to_bson_cstring(encoded)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        value.to_bson(encoded)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; EVAL</tt><tt><br>
+      </tt><tt>&nbsp; end</tt><tt><br>
+      </tt><tt><br>
+      </tt><tt>&nbsp; def test_array_index_optimization</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; size = 1024</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; array = Array.new(size){|i| i}</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; method_label_pairs = [</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [
+        method(:old_array_index),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        'Array index optimize none'
+        ],&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Xeon allocated: 3075,
+        user: 1.6</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [
+        method(:new_array_index_optimize), 'Array index optimize 1024',
+        RESET ] # Xeon allocated: 3, user: 0.7, base: 1.6, gain: 0.57</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; ]</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; benchmark_methods_with_gc(1_000,
+        method_label_pairs) { array.to_bson }</tt><tt><br>
+      </tt><tt>&nbsp; end</tt><br>
+    </p>
+    <p><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/bench_test.out.txt">bench_test.out</a>:5<br>
+    </p>
+    <blockquote>
+      <p><tt>BenchTest#test_array_index_optimization = </tt><tt><br>
+        </tt><tt>label: "Array index optimize none", allocated: 2051,
+          user: 1.6</tt><tt><br>
+        </tt><tt>label: "Array index optimize 1024", allocated: 3, user:
+          0.7, base: 1.6, gain: 0.55</tt><br>
+      </p>
+    </blockquote>
+    <p>Gain is for the specific operation calculated by ((1 - new_time)
+      / old_time)<br>
+    </p>
+    <p><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/encode-ruby-prof.out.txt">bench_test.rb</a>:622<br>
+      <tt><br>
+        &nbsp; def old_integer_bson_int32?</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; BSON.module_eval &lt;&lt;-EVAL</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module Integer</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def
+        bson_int32?</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        (MIN_32BIT &lt;= self) &amp;&amp; (self &lt;= MAX_32BIT)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; EVAL</tt><tt><br>
+      </tt><tt>&nbsp; end</tt><tt><br>
+      </tt><tt><br>
+      </tt><tt>&nbsp; def new_integer_bson_int32?</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; BSON.module_eval &lt;&lt;-EVAL</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module Integer</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @@FIXNUM_HIGHBITS32 = (-1 &lt;&lt; 32)</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def
+        bson_int32?</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        (self &amp; @@FIXNUM_HIGHBITS32) == 0</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; EVAL</tt><tt><br>
+      </tt><tt>&nbsp; end</tt><tt><br>
+      </tt><tt><br>
+      </tt><tt>&nbsp; def test_bson_int32?</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; method_label_pairs = [</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [
+        method(:old_integer_bson_int32?),&nbsp;&nbsp;&nbsp;&nbsp;
+        'Integer#bson_int32? old', RESET ], # Xeon allocated: 0, user:
+        21.3</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [
+        method(:new_integer_bson_int32?), 'Integer#bson_int32? new'
+        ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        # Xeon allocated: 0, user: 24.9, base: 21.3, gain: -0.16</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; ]</tt><tt><br>
+      </tt><tt>&nbsp;&nbsp;&nbsp; benchmark_methods_with_gc(100_000_000,
+        method_label_pairs) {|i| i.bson_int32? }</tt><tt><br>
+      </tt><tt>&nbsp; end</tt><br>
+    </p>
+    <p><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/bench_test.out.txt">bench_test.out</a>:10<br>
+    </p>
+    <blockquote>
+      <p><tt>BenchTest#test_bson_int32? = </tt><tt><br>
+        </tt><tt>label: "Integer#bson_int32? old", allocated: 0, user:
+          24.9</tt><tt><br>
+        </tt><tt>label: "Integer#bson_int32? new", allocated: 0, user:
+          30.5, base: 24.9, gain: -0.22</tt><br>
+      </p>
+    </blockquote>
+    <p><a
+href="file:///Users/gjm/10gen/working-notes/ruby_bson_performance/perf/bench_test.out.txt">bench_test.out</a>:27</p>
+    <blockquote>
+      <p><tt>BenchTest#test_doc_stats = </tt><tt><br>
+        </tt><tt>0.44 String 811731</tt><tt><br>
+        </tt><tt>0.35 Array 646586</tt><tt><br>
+        </tt><tt>0.07 NilClass 120515</tt><tt><br>
+        </tt><tt>0.06 Fixnum 120181</tt><tt><br>
+        </tt><tt>0.05 FalseClass 89655</tt><tt><br>
+        </tt><tt>0.02 Hash 44144</tt><tt><br>
+        </tt><tt>0.01 TrueClass 18245</tt><tt><br>
+        </tt><tt>0.00 Float 996</tt><tt><br>
+        </tt><tt>objects: 1852053</tt><br>
+      </p>
+    </blockquote>
+    <p><a href="perf/decode-ruby-prof.out.txt">decode-ruby-prof.out</a><br>
+    </p>
+    <h1>Index</h1>
+    <h2>native (Current/Latest)</h2>
+    <p>Native methods for BSON during encode/decode, both C and Java,
+      also includes the following other optimizations.</p>
+    <p>Gain is for the specific operation calculated by ((1 - new_time)
+      / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
+    <p>Some optimizations (Integer#to_bson_key, String#set_int32,
+      Integer#to_bson) were previously included in the set_int32
+      measurement, but are expanded upon here.</p>
+    <table class="optim">
+      <tbody>
+        <tr class="optim">
+          <th class="optim">language</th>
+          <th class="optim">method</th>
+          <th class="optim">notes</th>
+          <th class="optim">gain</th>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Ruby</td>
+          <td class="optim">Integer#to_bson_key</td>
+          <td class="optim">uses 1024 BSON_ARRAY_INDEXES</td>
+          <td class="optim">0.57</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Ruby</td>
+          <td class="optim">String#set_int32</td>
+          <td class="optim">used by
+            Encodable#encode_with_placeholder_and_null to set BSON int32
+            size</td>
+          <td class="optim">0.26</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Ruby</td>
+          <td class="optim">Integer#to_bson</td>
+          <td class="optim">order to test for smaller first</td>
+          <td class="optim">0.18</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Ruby</td>
+          <td class="optim">NilClass#to_bson</td>
+          <td class="optim">eliminate append of empty string</td>
+          <td class="optim">0.12</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_string_check_for_illegal_characters</td>
+          <td class="optim">String#check_for_illegal_characters!</td>
+          <td class="optim">0.15</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_float_to_bson</td>
+          <td class="optim">Float#to_bson</td>
+          <td class="optim">0.61</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_integer_to_bson</td>
+          <td class="optim">Integer#to_bson_key for large 0.50, small
+            0.24</td>
+          <td class="optim">0.50</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_symbol_to_bson</td>
+          <td class="optim">Symbol#to_bson</td>
+          <td class="optim">0.34</td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_float_to_bson</td>
+          <td class="optim">Float#from_bson_double</td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_string_to_bson_string</td>
+          <td class="optim">String#to_utf8_binary</td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_object_id_generator_next</td>
+          <td class="optim">ObjectId#next</td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_true_class_to_bson</td>
+          <td class="optim">TrueClass#to_bson</td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">C</td>
+          <td class="optim">rb_false_class_to_bson</td>
+          <td class="optim">FalseClass#to_bson</td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">bool toBson</td>
+          <td class="optim">TrueClass#to_bson FalseClass#to_bson</td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">number toBson</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">double toBsonDouble</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">generator next</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">generator nextObjectId</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">integer toBson</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">integer toBsonInt</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">integer isInt32</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">integer toBsonInt32</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">integer toBsonInt64</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">time toBson</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+        <tr class="optim">
+          <td class="optim">Java</td>
+          <td class="optim">time toBsonTime</td>
+          <td class="optim"><br>
+          </td>
+          <td class="optim"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p> Combinations of</p>
+    <ul>
+      <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+      <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <p><a href="native/index.html">native index</a></p>
+    <ul>
+      <li><a href="native/test_bson_all_denizen.html">Intel Core
+          i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="native/test_bson_all_rhapsody.html">Intel Core 2 Duo
+          CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+      <li><a href="native/test_bson_all_quartet.html">Intel Core 2 Quad
+          CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+    </ul>
+    <p>Interpretation for comparison:<br>
+      Encoding has improved significantly, but not as much as hoped.<br>
+      Decoding has not changed from the kickoff measurement as expected.
+    </p>
+    <p> Comparison of</p>
+    <ul>
+      <li>versions (setint32, append, kickoff)</li>
+      <li>drivers (mongo-meta-driver)</li>
+      <li>extensions (pure ruby, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <ul>
+      <li><a href="native/test_bson_all_native_denizen.html">Intel Core
+          i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="native/test_bson_all_native_rhapsody.html">Intel Core
+          2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009
+          (Rhapsody)</a></li>
+      <li><a href="native/test_bson_all_native_quartet.html">Intel Core
+          2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh
+          (Quartet)</a></li>
+    </ul>
+    <h2>setint32</h2>
+    <p>setint32 method for BSON sizes during serialization</p>
+    <p>also includes the following other optimizations</p>
+    <ul>
+      <li>native
+        <ul>
+          <li>setint32</li>
+          <li>Integer#to_bson_int32 append</li>
+          <li>Integer#to_bson_int64 append</li>
+          <li>Integer#to_bson_time append</li>
+        </ul>
+      </li>
+      <li>Integer#to_bson test order - test bson_int32? first as most
+        numbers fit </li>
+    </ul>
+    <p>
+      Combinations of</p>
+    <ul>
+      <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+      <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <p><a href="setint32/index.html">setint32 index</a></p>
+    <ul>
+      <li><a href="setint32/test_bson_all_denizen.html">Intel Core
+          i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="setint32/test_bson_all_rhapsody.html">Intel Core 2
+          Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009
+          (Rhapsody)</a></li>
+      <li><a href="setint32/test_bson_all_quartet.html">Intel Core 2
+          Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh
+          (Quartet)</a></li>
+    </ul>
+    <p>Interpretation for comparison:<br>
+      Encoding has improved significantly, but not as much as hoped.<br>
+      Decoding has not changed from the kickoff measurement as expected.
+    </p>
+    <p>
+      Comparison of</p>
+    <ul>
+      <li>versions (setint32, append, kickoff)</li>
+      <li>drivers (mongo-meta-driver)</li>
+      <li>extensions (pure ruby, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <ul>
+      <li><a href="setint32/test_bson_all_setint32_denizen.html">Intel
+          Core i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="setint32/test_bson_all_setint32_rhapsody.html">Intel
+          Core 2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009
+          (Rhapsody)</a></li>
+      <li><a href="setint32/test_bson_all_setint32_quartet.html">Intel
+          Core 2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008
+          Hackintosh (Quartet)</a></li>
+    </ul>
+    <h2>Append</h2>
+    <p>Append with method to_bson(encoded) for serialization</p>
+    <p>Interpretation for combinations:<br>
+      Encoding has improved but still looks disappointing,
+      the BSON 2.0/mongo-meta-driver performance still lags
+      considerably.<br>
+      Decoding has not changed from the kickoff measurement as expected,
+      significant improvement is needed still to catch up with bson_c
+      and bson_java.
+    </p>
+    <p>
+      Combinations of</p>
+    <ul>
+      <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+      <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <p><a href="append/index.html">Append index</a></p>
+    <ul>
+      <li><a href="append/test_bson_all_denizen.html">Intel Core
+          i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="append/test_bson_all_rhapsody.html">Intel Core 2 Duo
+          CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+      <li><a href="append/test_bson_all_quartet.html">Intel Core 2 Quad
+          CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+    </ul>
+    <p>Interpretation for comparison:<br>
+      Encoding has improved significantly, but not as much as hoped.<br>
+      Decoding has not changed from the kickoff measurement as expected.
+    </p>
+    <p>
+      Comparison of</p>
+    <ul>
+      <li>versions (append, kickoff)</li>
+      <li>drivers (mongo-meta-driver)</li>
+      <li>extensions (pure ruby, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <ul>
+      <li><a href="append/test_bson_all_append_denizen.html">Intel Core
+          i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="append/test_bson_all_append_rhapsody.html">Intel Core
+          2 Duo CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009
+          (Rhapsody)</a></li>
+      <li><a href="append/test_bson_all_append_quartet.html">Intel Core
+          2 Quad CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh
+          (Quartet)</a></li>
+    </ul>
+    <h2>Kickoff</h2>
+    <p>Kickoff for BSON 2.0 (mongo-meta-driver) - Initial Ruby BSON
+      combination comparison</p>
+    <p>Interpretation for combinations:<br>
+      Encoding looks disappointing for a kickoff measurement,
+      the BSON 2.0/mongo-meta-driver performance lags considerably.<br>
+      Decoding looks fairly good for a kickoff measurement,
+      however significant improvement is needed to catch up with bson_c
+      and bson_java.
+    </p>
+    <p>
+      Combinations of</p>
+    <ul>
+      <li>drivers (mongo-ruby-driver, mongo-meta-driver)</li>
+      <li>extensions (pure ruby, bson_c, bson_java, meta native)</li>
+      <li>rubies (Ruby 2.0.0, JRuby 1.7.3)</li>
+    </ul>
+    <p><a href="kickoff/index.html">Kickoff index</a></p>
+    <ul>
+      <li><a href="kickoff/test_bson_all_osprey.html">Intel Xeon CPU
+          X5650 @ 2.67GHz - Mac Pro, Mid 2010 (Osprey)</a></li>
+      <li><a href="kickoff/test_bson_all_denizen.html">Intel Core
+          i5-2415M CPU @ 2.3GHz - Mac mini, Mid 2011 (Denizen)</a></li>
+      <li><a href="kickoff/test_bson_all_rhapsody.html">Intel Core 2 Duo
+          CPU T9900 @ 3.06GHz - MacBook Pro 17-inch, Mid 2009 (Rhapsody)</a></li>
+      <li><a href="kickoff/test_bson_all_quartet.html">Intel Core 2 Quad
+          CPU Q6600 @ 2.40GHz - Mac Pro, Early 2008 Hackintosh (Quartet)</a></li>
+    </ul>
+  </body>
 </html>
