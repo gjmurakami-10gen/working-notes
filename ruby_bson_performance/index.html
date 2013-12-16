@@ -355,8 +355,7 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
           0.7, base: 1.6, gain: 0.55</tt><br>
       </p>
     </blockquote>
-    <p>Gain is for the specific operation calculated by ((1 - new_time)
-      / old_time)<br>
+    <p>Gain is for the specific operation calculated by (1 - new_time / old_time)<br>
     </p>
     <p><a href="perf/encode-ruby-prof.out.txt">bench_test.rb</a>:622<br>
       <tt><br>
@@ -432,8 +431,7 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
     <h2>native (Current/Latest)</h2>
     <p>Native methods for BSON during encode/decode, both C and Java,
       also includes the following other optimizations.</p>
-    <p>Gain is for the specific operation calculated by ((1 - new_time)
-      / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
+    <p>Gain is for the specific operation calculated by (1 - new_time / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
     <p>Some optimizations (Integer#to_bson_key, String#set_int32,
       Integer#to_bson) were previously included in the set_int32
       measurement, but are expanded upon here.</p>
