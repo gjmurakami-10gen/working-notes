@@ -108,12 +108,56 @@ href="http://www.ruby-doc.org/stdlib-2.0/libdoc/benchmark/rdoc/Benchmark.html"
     <p><b>Valgrind</b> - <a
         href="http://en.wikipedia.org/wiki/Valgrind">http://en.wikipedia.org/wiki/Valgrind
 
+
       </a>-
       <meta charset="utf-8">
       Valgrind is a&nbsp;GPL&nbsp;licensed&nbsp;programming
       tool&nbsp;for&nbsp;memory debugging,&nbsp;memory
       leak&nbsp;detection, and&nbsp;profiling.</p>
     <h2>Ruby BSON case study</h2>
+    <p>github <a href="https://github.com/mongodb">mongodb</a> / <a
+        href="https://github.com/mongodb/bson-ruby">bson-ruby</a> - Ruby
+      BSON 2 used in Mongoid 4 / Moped 1.5<br>
+    </p>
+    <p>work by Durran Jordan, Tyler Brock, Gary Murakami, Brandon Black<br>
+    </p>
+    <p><br>
+    </p>
+    <meta charset="utf-8">
+    <p>$ irb # or pry<br>
+      &gt; require 'bson'<br>
+      &nbsp;=&gt; true&nbsp;</p>
+    <p>&gt; 3.14159.to_bson<br>
+      &nbsp;=&gt; "n\x86\e\xF0\xF9!\t@"&nbsp;</p>
+    <p>&gt; Float.from_bson(StringIO.new("n\x86\e\xF0\xF9!\t@"))<br>
+      &nbsp;=&gt; 3.14159&nbsp;</p>
+    <p>&gt; { pi: 3.14159 }.to_bson<br>
+      &nbsp;=&gt;
+      "\x11\x00\x00\x00\x01pi\x00n\x86\e\xF0\xF9!\t@\x00"&nbsp;</p>
+    <p>&gt;
+BSON::Document.from_bson(StringIO.new("\x11\x00\x00\x00\x01pi\x00n\x86\e\xF0\xF9!\t@\x00"))<br>
+      &nbsp;=&gt; {"pi"=&gt;3.14159}<br>
+    </p>
+    <pre><br><br><br>module BSON</pre>
+    <pre>&nbsp; module Float</pre>
+    <pre>&nbsp;&nbsp;&nbsp; def to_bson(encoded = ''.force_encoding(BINARY))</pre>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; encoded &lt;&lt; [ self ].pack(PACK)</pre>
+    <pre>&nbsp;&nbsp;&nbsp; end</pre>
+    <pre><br>&nbsp;&nbsp;&nbsp; module ClassMethods</pre>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def from_bson(bson)</pre>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from_bson_double(bson.read(8))</pre>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</pre>
+    <pre><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private</pre>
+    <pre><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; def from_bson_double(double)</pre>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double.unpack(PACK).first</pre>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end</pre>
+    <pre>&nbsp;&nbsp;&nbsp; end</pre>
+    <pre>&nbsp;&nbsp;&nbsp; Registry.register(BSON_TYPE, ::Float)</pre>
+    <pre>&nbsp; end</pre>
+    <pre><br>&nbsp; # Enrich the core Float class with this module.</pre>
+    <pre>&nbsp; ::Float.send(:include, Float)</pre>
+    <pre>&nbsp; ::Float.send(:extend, Float::ClassMethods)</pre>
+    <pre>end</pre>
     <h3>Profile</h3>
     <p><a href="perf/encode-ruby-prof.out.txt">bench_test.rb</a>:853<br>
     </p>
@@ -169,6 +213,7 @@ href="http://www.ruby-doc.org/stdlib-2.0/libdoc/benchmark/rdoc/Benchmark.html"
     <blockquote><tt>BenchTest#test_encode_ruby_prof = </tt><br>
       <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         user&nbsp;&nbsp;&nbsp;&nbsp;
         system&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; real</tt><br>
@@ -183,12 +228,15 @@ href="http://www.ruby-doc.org/stdlib-2.0/libdoc/benchmark/rdoc/Benchmark.html"
         tabela, est\u00e1 muito foda
         **","in_reply_to_status_id":null,"retweet_count":null,"contributors":null,"created_at":"Thu
 
+
         Sep 02 18:11:23 +0000
         2010","geo":null,"source":"web","coordinates":null,"in_reply_to_screen_name":null,"truncated":false,"entities":{"user_mentions":[],"urls":[],"hashtags":[]},"retweeted":false,"place":null,"user":{"friends_count":73,"profile_sidebar_fill_color":"768575","location":"","verified":false,"follow_request_sent":null,"favourites_count":1,"profile_sidebar_border_color":"1c9dbd","profile_image_url":"http://a2.twimg.com/profile_images/1036412454/OgAAADXK9q6kaxrvfwQTINH66RVLAH9YHb-veRTA4FaWb9KtbGGV_yKTGzmvzTfJidqAb5gK_mpspIE-MIvAASGH2CwAm1T1UIPQk0-HS8x_TV5kdnW30nch7ODk-1_normal.jpg","geo_enabled":false,"created_at":"Fri
+
 
         Jul 03 21:44:05 +0000 2009","description":"s\u00f3 os loucos
         sabem
         (:","time_zone":"Brasilia","url":"http://http://www.orkut.com.br/Main#Profile?uid=1433295880233078770","screen_name":"Bia_cunha1","notifications":null,"profile_background_color":"081114","listed_count":0,"lang":"en","profile_background_image_url":"http://a1.twimg.com/profile_background_images/133178546/biatwitter.jpg","statuses_count":3504,"following":null,"profile_text_color":"25b8c2","protected":false,"show_all_inline_media":false,"profile_background_tile":true,"name":"Beatriz
+
 
         Helena
 Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_count":102,"id":53507833,"profile_use_background_image":true,"utc_offset":-10800},"favorited":false,"in_reply_to_user_id":null,"id":22819396900}</tt><br>
@@ -247,6 +295,20 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
     <p></p>
     <p>examine call tree for <a href="perf/encode-ruby-prof.out.txt">encode-ruby-prof.out</a><br>
     </p>
+    <p>This profile is for recent code, but the first profile output
+      identified String concatenation and resulted in modification to
+      append everywhere.&nbsp; Full-benchmarks with comparison to older
+      Ruby implementations were run for major milestones.<br>
+    </p>
+    <ol>
+      <li>Kickoff - Initial Ruby BSON</li>
+      <li>Append - append in method to_bson(encoded='') for
+        serialization</li>
+      <li>setInt32 - native setint32 method for BSON sizes during
+        serialization</li>
+      <li>Native&nbsp; - native methods for BSON during encode/decode,
+        both C and Java</li>
+    </ol>
     <p><a href="perf/encode-ruby-prof.out.txt">bench_test.rb</a>:86<br>
     </p>
     <p><tt>&nbsp; def old_array_index</tt><tt><br>
@@ -259,17 +321,22 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
         |encoded|</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         each_with_index do |value, index|</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         encoded &lt;&lt; value.bson_type</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         index.to_s.to_bson_key(encoded)</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         value.to_bson(encoded)</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         end</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -295,29 +362,38 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
         |encoded|</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         each_with_index do |value, index|</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         encoded &lt;&lt; value.bson_type</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         if index &lt; @@_BSON_INDEX_SIZE</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         encoded &lt;&lt; @@_BSON_INDEX_ARRAY[index]</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         else</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         index.to_s.to_bson_cstring(encoded)</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         end</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         value.to_bson(encoded)</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         end</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -333,6 +409,7 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
       </tt><tt>&nbsp;&nbsp;&nbsp; method_label_pairs = [</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [
         method(:old_array_index),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
         'Array index optimize none'
         ],&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Xeon allocated: 3075,
@@ -355,7 +432,8 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
           0.7, base: 1.6, gain: 0.55</tt><br>
       </p>
     </blockquote>
-    <p>Gain is for the specific operation calculated by (1 - new_time / old_time)<br>
+    <p>Gain is for the specific operation calculated by (1 - new_time /
+      old_time) - eliminated 55% CPU time above.<br>
     </p>
     <p><a href="perf/encode-ruby-prof.out.txt">bench_test.rb</a>:622<br>
       <tt><br>
@@ -395,6 +473,7 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
         method(:new_integer_bson_int32?), 'Integer#bson_int32? new'
         ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
         # Xeon allocated: 0, user: 24.9, base: 21.3, gain: -0.16</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp; ]</tt><tt><br>
       </tt><tt>&nbsp;&nbsp;&nbsp; benchmark_methods_with_gc(100_000_000,
@@ -430,8 +509,9 @@ Cunha","contributors_enabled":false,"profile_link_color":"eb55b6","followers_cou
     <h1>Index</h1>
     <h2>native (Current/Latest)</h2>
     <p>Native methods for BSON during encode/decode, both C and Java,
-      also includes the following other optimizations.</p>
-    <p>Gain is for the specific operation calculated by (1 - new_time / old_time) and measured on an Intel Xeon (Westmere) processor.</p>
+      also includes the following optimizations.</p>
+    <p>Gain is for the specific operation calculated by (1 - new_time /
+      old_time) and measured on an Intel Xeon (Westmere) processor.</p>
     <p>Some optimizations (Integer#to_bson_key, String#set_int32,
       Integer#to_bson) were previously included in the set_int32
       measurement, but are expanded upon here.</p>
